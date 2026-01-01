@@ -27,20 +27,42 @@ SCENE.addChild(circle);
         $(window).on("resize", redimensionneCanvas);
         redimensionneCanvas(); // appel initial
 
+
+        // ==============
+        // La carte 
+        // ==============
+
+        var carte = [   ["mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur"],
+                        ["mur","sol","sol","sol","sol","sol","sol","sol","sol","sol","sol","sol","mur"],
+                        ["mur","sol","sol","sol","sol","sol","sol","sol","sol","sol","sol","sol","mur"],
+                        ["mur","sol","sol","sol","sol","mur","sol","sol","sol","sol","sol","sol","mur"],
+                        ["mur","sol:chemin","sol:chemin","sol:chemin","sol:chemin","sol:chemin","mur","sol","sol","sol","sol","sol","mur"],
+                        ["mur","sol","mur","sol","mur","sol:chemin","sol","sol","sol","sol","sol","sol","mur"],
+                        ["mur","sol","sol","sol","sol","sol:chemin","sol","sol","sol","sol","sol","sol","mur"],
+                        ["mur","sol","sol","sol","mur","sol:chemin","sol","sol","sol","sol","sol","sol","mur"],
+                        ["mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur"]]
+
+        CARTE = new Carte(carte, [1,2], SCENE)
+
+
+
         //Objets
         LISTE_OBJETS = [] // Liste des objets à updater
 
-
-        JOUEUR = new Joueur();
+        // ==============
+        // JOUEUR
+        // ==============
+        JOUEUR = new Joueur({POSITION:{X:1, Y:0}});
         SCENE.addChild(JOUEUR.objet)
         LISTE_OBJETS.push(JOUEUR)
 
 
 
 
-        JOUEUR.X = 3
-        JOUEUR.Y = -3
 
+       
+
+        
 
         STAGE.update();
 

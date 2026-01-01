@@ -6,3 +6,5 @@ function norme(V)
         n += V[v]*V[v]
     return Math.sqrt(n)
 }
+
+

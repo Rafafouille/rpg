@@ -19,6 +19,10 @@ function update(event)
         SCENE.y = -JOUEUR.y+UNITE*PADDING.y
     if(pos_abs.y > $("#canvas").height() - UNITE*PADDING.y)
         SCENE.y = -JOUEUR.y + $("#canvas").height() - UNITE*PADDING.y
+
+
+    // Tri avantplan / arriere plan
+    //SCENE.children.sort((a, b) => a.y - b.y);
 }
 
 

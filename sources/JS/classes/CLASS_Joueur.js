@@ -74,5 +74,8 @@ class Joueur extends Personnage
                 else if(this._orientation==4)
                     this.sprite.gotoAndPlay("marche_bas")
             }
+
+            //var patch = this.patch
+            //console.log(patch)
     }
 }

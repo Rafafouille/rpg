@@ -21,6 +21,9 @@ class Personnage extends ObjetGraphique
     get orientation()
         {return this._orientation}
 
+    set orientation(_o_)
+        {this._orientation = _o_}
+
     /** Fonction qui met à jour l'orientation en fonction de this._direction */
     updateOrientation()
         {
@@ -100,15 +103,46 @@ class Personnage extends ObjetGraphique
                     }
             }
 
-
+    /** Indique si le personnage est arrêté (direction nulle) */
     estArrete()
             {return norme(this._direction)==0}
         
+    /** Arrête le personnage */
     stop()
         {
             this._direction.x = 0
             this._direction.y = 0
         }
+
+    /** Repositionne le personnage en dehors des murs */
+    repositionne()
+    {
+        var patch = this.patch
+        for(var i = 0; i < patch.length; i++)
+        {
+            if(patch[i].bloquant)
+            {
+                
+                var ecart = {"X": this.X - patch[i].X, "Y": this.Y - patch[i].Y}
+                if(Math.abs(ecart.X) > Math.abs(ecart.Y)) // Si on chevauche plus horizontalement que verticalement
+                {
+                    // on repousse en X
+                    if(ecart.X > 0) // Si on mange par la droite
+                        this.X = patch[i].X + patch[i].WIDTH/2 + this.WIDTH/2 + 0.01
+                    else // Si on mange par la gauche
+                        this.X = patch[i].X - this.WIDTH/2 - this.WIDTH/2 - 0.01
+                }
+                else // Si on chevauche plus verticalement que horizontalement
+                {
+                    // on repousse en Y
+                    if(ecart.Y > 0) // Si on mange par le bas
+                        this.Y = patch[i].Y + patch[i].HEIGHT/2 + this.HEIGHT/2 + 0.01
+                    else // Si on mange par le haut
+                        this.Y = patch[i].Y - this.HEIGHT/2 - this.HEIGHT/2 - 0.01
+                }
+            }
+        }
+    }
 
 
     // ===============================================================================
@@ -138,11 +172,11 @@ class Personnage extends ObjetGraphique
         super.update(_param_)
 
         var dt = _param_.delta/1000.
-        if(norme(this._direction))
+        if(norme(this._direction) && AUTORISE_COMMANDE)
         {
             this.X += this._vitesse * this.direction_normee.x * dt;
             this.Y += this._vitesse * this.direction_normee.y * dt;
+            this.repositionne()
         }
-
     }
 }

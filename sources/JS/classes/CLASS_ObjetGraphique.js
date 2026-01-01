@@ -2,15 +2,45 @@
 class ObjetGraphique
 {
     /** Constructeur */
-    constructor(_param_)
+    constructor(_param_={}, _redessine_=true)
     {
         // On crée l'objet graphique et un groupe à l'intérieur pour pouvoir faire des décallages
         this._objet = new createjs.Container() ;
         this._contenu = new createjs.Container();
             this._objet.addChild(this._contenu)
 
-        this.redessine();
-        this.repositionne();
+        this.#cadre = new createjs.Shape();
+            this.#cadre.graphics.setStrokeStyle(2).beginStroke("red").drawRect(this.x-this.anchor_x, this.y-this.anchor_y, this.width, this.height);
+            this.#cadre.visible = false
+            this._objet.addChild(this.#cadre)
+
+
+        //Traitement des paramètres
+        for (const [cle, valeur] of Object.entries(_param_))
+        {
+            switch (cle) {
+                case "POSITION":
+                this._POSITION.X= valeur.X;
+                this._POSITION.Y= valeur.Y;
+                break;
+
+                case "DIMENSION":
+                this._DIMENSION.WIDTH = valeur.WIDTH;
+                this._DIMENSION.HEIGHT = valeur.HEIGHT;
+                break;
+
+                case "ANCHOR":
+                this._ANCHOR.X = valeur.X;
+                this._ANCHOR.Y = valeur.Y;
+                break;
+            }
+        }
+
+
+
+        if(_redessine_)
+            this.redessine();
+        this.updatePositionObjet();
     }
     
 
@@ -33,7 +63,7 @@ class ObjetGraphique
         set X(_x_)
             {
                 this._POSITION.X = _x_;
-                this.repositionne();
+                this.updatePositionObjet();
             }
 
         /** Getter de la position horizontale dans le système de coordonnées de la MAP */
@@ -44,7 +74,7 @@ class ObjetGraphique
         set Y(_y_)
             {
                 this._POSITION.Y = _y_;
-                this.repositionne();
+                this.updatePositionObjet();
             }
 
         /** Getter de la position verticale dans le système de coordonnées de la MAP (>0 vers le haut)*/
@@ -59,7 +89,7 @@ class ObjetGraphique
         set x(_x_)
             {
                 this._POSITION.X = _x_ / UNITE;
-                this.repositionne();
+                this.updatePositionObjet();
             }
 
         /** Getter de la position horizontale dans le système de coordonnées de createJS */
@@ -70,7 +100,7 @@ class ObjetGraphique
         set y(_y_)
             {
                 this._POSITION.Y = -_y_ / UNITE;
-                this.repositionne();
+                this.updatePositionObjet();
             }
 
         /** Getter de la position verticale dans le système de coordonnées de createJS (>0 vers le bas)*/
@@ -144,7 +174,7 @@ class ObjetGraphique
         set ANCHOR_X(_x_)
             {
                 this._ANCHOR.X = _x_;
-                this.repositionne();
+                this.updatePositionObjet();
             }
 
         /** Getter de l'anchor sur X, en coordonnées de la MAP */
@@ -155,7 +185,7 @@ class ObjetGraphique
         set ANCHOR_Y(_y_)
             {
                 this._ANCHOR.Y = _y_;
-                this.repositionne();
+                this.updatePositionObjet();
             }
 
         /** Getter de l'anchor sur Y, en coordonnées de la MAP */
@@ -170,7 +200,7 @@ class ObjetGraphique
         set anchor_x(_x_)
             {
                 this._ANCHOR.X = _x_ / UNITE ;
-                this.repositionne();
+                this.updatePositionObjet();
             }
 
         /** Getter de l'anchor sur X, en coordonnées de la MAP */
@@ -181,7 +211,7 @@ class ObjetGraphique
         set anchor_y(_y_)
             {
                 this._ANCHOR.Y = -_y_ / UNITE;
-                this.repositionne();
+                this.updatePositionObjet();
             }
 
         /** Getter de l'anchor sur Y, en coordonnées de la MAP */
@@ -208,17 +238,21 @@ class ObjetGraphique
         get contenu()
             {return this._contenu}
 
+
+    /** Couleur (surtout pour le debug) */
+    couleur = "#FF0000";
+
     /** Fonction qui efface puis redessine l'objet */
     redessine()
         {
             this._contenu.removeAllChildren();
             var carre = new createjs.Shape();
-            carre.graphics.beginFill("#ff0000").drawRect(0, 0, this.width, this.height);
+            carre.graphics.beginFill(this.couleur).drawRect(0, 0, this.width, this.height);
             this._contenu.addChild(carre);
         }
 
     /** Repositionne l'objet graphique */
-    repositionne()
+    updatePositionObjet()
     {
         this._objet.x = this.x;
         this._objet.y = this.y;
@@ -233,6 +267,49 @@ class ObjetGraphique
     sprite = null;
 
 
+
+    // ===============================================================================
+    // GESTION DES TUILES
+    // ===============================================================================
+
+    /** Getter qui renvoie la tuile située juste en dessous du personnage*/
+    get tuile()
+        {return CARTE.getTuile(this.X, this.Y)}
+
+    /** Getter qui renvoie le patch de tuile sur lequel l'objet est à cheval*/
+    get patch()
+        {
+            var patch = []
+            for(var X= this.X-this.ANCHOR_X; X<=this.X-this.ANCHOR_X+this.WIDTH ; X++)
+            {
+                for(var Y= this.Y-this.ANCHOR_Y-this.HEIGHT; Y<=this.Y-this.ANCHOR_Y; Y++)
+                {
+                    patch.push(CARTE.getTuile(X,Y))
+                }
+            }
+            return patch
+        }
+
+
+
+    // ===============================================================================
+    // GRAPHISME
+    // ===============================================================================
+
+    /** Cadre de mise en évidence de l'objet */
+    #cadre = null;
+
+    #afficheCadre = false;
+
+    get afficheCadre()
+        {return this.#afficheCadre;}
+
+    set afficheCadre(_a_)
+        {
+            _a_ = Boolean(_a_);
+            this.#afficheCadre = _a_;
+            this.#cadre.visible = _a_ ;
+        }
 
     // ===============================================================================
     // UPDATE
