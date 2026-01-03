@@ -45,6 +45,12 @@ window.addEventListener("keydown", (e) => {
         case "ArrowRight":
             JOUEUR.direction_x = 1
             break;
+        // Quand on appuis sur Controle, on interagit avec la tuile devant le joueur
+        case "Control":
+            var tuileDevant = JOUEUR.tuileDevant
+            if(tuileDevant)
+                tuileDevant.action()
+            break
     }
 });
 

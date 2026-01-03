@@ -40,4 +40,13 @@ class Tuile extends ObjetGraphique
     // Graphismes
     // ============================================
 
+    // ============================================
+    // Action
+    // ============================================
+
+    action()
+    {
+        alert("Rien d'intéressant ici... Tuile de type '"+this._type+"' et nature '"+this._nature+"' et coordonnées ("+this.X+","+this.Y+")");
+    }
+
 }

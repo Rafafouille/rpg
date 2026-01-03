@@ -166,6 +166,19 @@ class Personnage extends ObjetGraphique
     }
 
 
+    /** Fonction qui renvoie la référence de la tuile qui se trouve 1 longueur devant le personnage */
+    get tuileDevant()
+    {
+        if(this._orientation==1) // est
+            return CARTE.getTuile(this.X - this.ANCHOR_X + this.WIDTH + 1, this.Y)
+        else if(this._orientation==2) // nord
+            return CARTE.getTuile(this.X, this.Y - this.ANCHOR_Y + 1)
+        else if(this._orientation==3) // ouest
+            return CARTE.getTuile(this.X - this.ANCHOR_X - 1, this.Y)
+        else if(this._orientation==4) // sud
+            return CARTE.getTuile(this.X, this.Y - this.ANCHOR_Y - this.HEIGHT - 1)
+    }    
+
     // ===============================================================================
     // OBJET GRAPHIQUE
     // ===============================================================================
