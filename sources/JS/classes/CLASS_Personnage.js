@@ -4,6 +4,9 @@ class Personnage extends ObjetGraphique
 
     constructor(_param_)
     {
+        _param_.WIDTH = 0.8
+        _param_.HEIGHT = 0.8
+
         super(_param_);
     }
 
@@ -114,32 +117,50 @@ class Personnage extends ObjetGraphique
             this._direction.y = 0
         }
 
-    /** Repositionne le personnage en dehors des murs */
-    repositionne()
+    /** Indique si on a une collision avec un mur ou un objet bloquant */
+    collisionMur()
     {
         var patch = this.patch
         for(var i = 0; i < patch.length; i++)
         {
             if(patch[i].bloquant)
             {
-                
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** Repositionne le personnage en dehors des murs */
+    repositionneHorsMurs()
+    {
+        var patch = this.patch
+        for(var i = 0; i < patch.length; i++)
+        {
+            if(patch[i].bloquant)
+            {                
                 var ecart = {"X": this.X - patch[i].X, "Y": this.Y - patch[i].Y}
                 if(Math.abs(ecart.X) > Math.abs(ecart.Y)) // Si on chevauche plus horizontalement que verticalement
                 {
                     // on repousse en X
                     if(ecart.X > 0) // Si on mange par la droite
-                        this.X = patch[i].X + patch[i].WIDTH/2 + this.WIDTH/2 + 0.01
+                        this.X = patch[i].X + patch[i].WIDTH/2 + this.ANCHOR_X + 0.01
                     else // Si on mange par la gauche
-                        this.X = patch[i].X - this.WIDTH/2 - this.WIDTH/2 - 0.01
+                        this.X = patch[i].X - patch[i].WIDTH/2 - this.WIDTH + this.ANCHOR_X - 0.01
                 }
                 else // Si on chevauche plus verticalement que horizontalement
                 {
                     // on repousse en Y
                     if(ecart.Y > 0) // Si on mange par le bas
-                        this.Y = patch[i].Y + patch[i].HEIGHT/2 + this.HEIGHT/2 + 0.01
+                        this.Y = patch[i].Y + patch[i].HEIGHT/2 + this.HEIGHT + this.ANCHOR_Y + 0.01
                     else // Si on mange par le haut
-                        this.Y = patch[i].Y - this.HEIGHT/2 - this.HEIGHT/2 - 0.01
+                        this.Y = patch[i].Y - patch[i].HEIGHT/2 + this.ANCHOR_Y - 0.01
                 }
+
+                // NOTE POUR PLUS TARD, plutot que patch[i].HEIGHT/2, il faudra peut être jouer avec les ANCHOR
+
+                // on a repositionné par rapport à ce mur bloquant -> on sort
+                //return;
             }
         }
     }
@@ -170,13 +191,21 @@ class Personnage extends ObjetGraphique
     update(_param_)
     {
         super.update(_param_)
-
         var dt = _param_.delta/1000.
         if(norme(this._direction) && AUTORISE_COMMANDE)
         {
+            var old = this.X;
             this.X += this._vitesse * this.direction_normee.x * dt;
+            if(this.collisionMur())
+                this.X = old;
+            var old = this.Y;
             this.Y += this._vitesse * this.direction_normee.y * dt;
-            this.repositionne()
+            if(this.collisionMur())
+                this.Y = old;
+
+            // Si on est dans un mur, on se repositionne correctement
+            if(this.collisionMur())
+                 this.repositionneHorsMurs()
         }
     }
 }

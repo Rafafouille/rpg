@@ -24,14 +24,38 @@ class ObjetGraphique
                 this._POSITION.Y= valeur.Y;
                 break;
 
+                case "X":
+                this._POSITION.X = valeur;
+                break;
+
+                case "Y":
+                this._POSITION.Y = valeur;
+                break;
+
                 case "DIMENSION":
                 this._DIMENSION.WIDTH = valeur.WIDTH;
                 this._DIMENSION.HEIGHT = valeur.HEIGHT;
                 break;
 
+                case "WIDTH":
+                this._DIMENSIONS.WIDTH = valeur;
+                break;
+
+                case "HEIGHT":
+                this._DIMENSIONS.HEIGHT = valeur;
+                break;
+
                 case "ANCHOR":
                 this._ANCHOR.X = valeur.X;
                 this._ANCHOR.Y = valeur.Y;
+                break;
+
+                case "ANCHOR_X":
+                this._ANCHOR.X = valeur;
+                break;
+
+                case "ANCHOR_Y":
+                this._ANCHOR.Y = valeur;
                 break;
             }
         }
@@ -279,14 +303,22 @@ class ObjetGraphique
     /** Getter qui renvoie le patch de tuile sur lequel l'objet est à cheval*/
     get patch()
         {
-            var patch = []
-            for(var X= this.X-this.ANCHOR_X; X<=this.X-this.ANCHOR_X+this.WIDTH ; X++)
+            var patch = [
+                    CARTE.getTuile(this.X-this.ANCHOR_X , this.Y-this.ANCHOR_Y),
+                    CARTE.getTuile(this.X-this.ANCHOR_X + this.WIDTH , this.Y-this.ANCHOR_Y),
+                    CARTE.getTuile(this.X-this.ANCHOR_X , this.Y-this.ANCHOR_Y - this.HEIGHT),
+                    CARTE.getTuile(this.X-this.ANCHOR_X + this.WIDTH , this.Y-this.ANCHOR_Y - this.HEIGHT)
+                ]
+
+
+            // Si l'objet fait plus que 2 tuiles de large ou de haut, on ajoute les tuiles manquantes
+            /*for(var X= this.X-this.ANCHOR_X; X<=this.X-this.ANCHOR_X+this.WIDTH ; X++)
             {
                 for(var Y= this.Y-this.ANCHOR_Y-this.HEIGHT; Y<=this.Y-this.ANCHOR_Y; Y++)
                 {
                     patch.push(CARTE.getTuile(X,Y))
                 }
-            }
+            }*/
             return patch
         }
 

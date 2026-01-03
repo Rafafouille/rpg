@@ -33,8 +33,8 @@ class Joueur extends Personnage
         this.spriteSheet = new createjs.SpriteSheet(spriteData);
         this.sprite = new createjs.Sprite(this.spriteSheet, "marche_bas");
         this.sprite.scaleX=this.sprite.scaleY=3;
-        this.sprite.x = -69
-        this.sprite.y = -100;
+        this.sprite.x = -74
+        this.sprite.y = -105;
         this._contenu.addChild(this.sprite);
 
     }
