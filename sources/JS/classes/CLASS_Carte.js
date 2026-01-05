@@ -88,6 +88,9 @@ class Carte
                         case "mur":
                             tuile = new Mur({POSITION:pos},type);
                             break;
+                        case "trou":
+                            tuile = new Trou({POSITION:pos});
+                            break;
                         default:
                             tuile = new Tuile({POSITION:pos});
                             break;

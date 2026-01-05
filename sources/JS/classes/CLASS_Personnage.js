@@ -30,23 +30,32 @@ class Personnage extends ObjetGraphique
     /** Fonction qui met à jour l'orientation en fonction de this._direction */
     updateOrientation()
         {
-            var old = this._orientation
-
-            if(this.estArrete())
-                return true;
-
-            var angle = Math.atan2(this._direction.y, this._direction.x)
-            if(angle >= -Math.PI/4 && angle <= Math.PI/4)
-                this._orientation = 1
-            else if(angle > Math.PI/4 && angle < 3*Math.PI/4)
-                this._orientation = 2
-            else if(angle > -3*Math.PI/4 && angle < -Math.PI/4)
-                this._orientation = 4
-            else
-                this._orientation = 3
-
-          return old != this._orientation
+            if(!this.estArrete())
+            {
+                var angle = Math.atan2(this._direction.y, this._direction.x)
+                if(angle >= -Math.PI/4 && angle <= Math.PI/4)
+                    this._orientation = 1
+                else if(angle > Math.PI/4 && angle < 3*Math.PI/4)
+                    this._orientation = 2
+                else if(angle > -3*Math.PI/4 && angle < -Math.PI/4)
+                    this._orientation = 4
+                else
+                    this._orientation = 3
+          }
         }
+
+
+    /** Indique s'il y a eu un changement de mouvement (démarrage, arrêt, changement de direction) */
+    mouvementChange()
+        {
+            if(this._direction.x != this._old_direction.x || this._direction.y != this._old_direction.y)
+            {
+                this._old_direction.x = this._direction.x
+                this._old_direction.y = this._direction.y
+                return true;
+            }
+            return false;
+        }   
     
     /** Vitesse (flottant) de déplacement du personnage */
     _vitesse = 2
@@ -106,6 +115,9 @@ class Personnage extends ObjetGraphique
                     }
             }
 
+        /** Direction au pas précédent */
+        _old_direction = {"x":0,"y":0}
+
     /** Indique si le personnage est arrêté (direction nulle) */
     estArrete()
             {return norme(this._direction)==0}
@@ -130,6 +142,28 @@ class Personnage extends ObjetGraphique
         }
         return false;
     }
+
+
+    /** Indique si on a une collisaion avec un autre objet */
+    collisionObjet()
+    {
+        var objets = LISTE_OBJETS.filter((obj) => obj != this)
+        for(var i = 0; i < objets.length; i++)
+        {
+            if(objets[i].X-this.X < objets[i].ANCHOR_X + this.WIDTH - this.ANCHOR_X
+                 &&
+               this.X - objets[i].X < this.ANCHOR_X + objets[i].WIDTH - objets[i].ANCHOR_X
+                &&
+               objets[i].Y - this.Y < objets[i].ANCHOR_Y + this.HEIGHT - this.ANCHOR_Y
+               &&
+               this.Y - objets[i].Y < this.ANCHOR_Y + objets[i].HEIGHT - objets[i].ANCHOR_Y)
+            {
+                return true;
+            }
+
+        }
+    }
+
 
     /** Repositionne le personnage en dehors des murs */
     repositionneHorsMurs()
@@ -166,17 +200,23 @@ class Personnage extends ObjetGraphique
     }
 
 
+    /** Fonction qui renvoie la référence de la tuile qui se trouve sous le centre du personnage */
+    get tuileCentre()
+    {
+        return CARTE.getTuile(this.X, this.Y)
+    }   
+
     /** Fonction qui renvoie la référence de la tuile qui se trouve 1 longueur devant le personnage */
     get tuileDevant()
     {
         if(this._orientation==1) // est
-            return CARTE.getTuile(this.X - this.ANCHOR_X + this.WIDTH + 1, this.Y)
+            return CARTE.getTuile(this.X - this.ANCHOR_X + this.WIDTH + 0.5, this.Y)
         else if(this._orientation==2) // nord
-            return CARTE.getTuile(this.X, this.Y - this.ANCHOR_Y + 1)
+            return CARTE.getTuile(this.X, this.Y - this.ANCHOR_Y + 0.5)
         else if(this._orientation==3) // ouest
-            return CARTE.getTuile(this.X - this.ANCHOR_X - 1, this.Y)
+            return CARTE.getTuile(this.X - this.ANCHOR_X - 0.5, this.Y)
         else if(this._orientation==4) // sud
-            return CARTE.getTuile(this.X, this.Y - this.ANCHOR_Y - this.HEIGHT - 1)
+            return CARTE.getTuile(this.X, this.Y - this.ANCHOR_Y - this.HEIGHT - 0.5)
     }    
 
     // ===============================================================================
@@ -203,22 +243,39 @@ class Personnage extends ObjetGraphique
     /** Mise à jour  */
     update(_param_)
     {
+
+        // Update de l'orientation
+        this.updateOrientation()
+
+        // Gestion des déplacements avec collision
         super.update(_param_)
         var dt = _param_.delta/1000.
         if(norme(this._direction) && AUTORISE_COMMANDE)
         {
             var old = this.X;
             this.X += this._vitesse * this.direction_normee.x * dt;
-            if(this.collisionMur())
+            if(this.collisionMur() || this.collisionObjet())
                 this.X = old;
             var old = this.Y;
             this.Y += this._vitesse * this.direction_normee.y * dt;
-            if(this.collisionMur())
+            if(this.collisionMur() || this.collisionObjet())
                 this.Y = old;
 
             // Si on est dans un mur, on se repositionne correctement
-            if(this.collisionMur())
+            if(this.collisionMur() || this.collisionObjet())
                  this.repositionneHorsMurs()
         }
+
+        // Action quand on marche sur une tuile (au moins une tuile du patch)
+        var patch = this.patch
+        for(var i = 0; i < patch.length; i++)
+        {
+            patch[i].actionMarchPatch();    
+            break;
+        }
+
+        var tuileCentre = this.tuileCentre
+        if(tuileCentre)
+            tuileCentre.actionMarcheCentre()
     }
 }

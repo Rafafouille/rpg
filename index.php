@@ -11,10 +11,12 @@
         <script src="./sources/JS/classes/CLASS_ObjetGraphique.js"></script>
         <script src="./sources/JS/classes/CLASS_Personnage.js"></script>
         <script src="./sources/JS/classes/CLASS_Joueur.js"></script>
+        <script src="./sources/JS/classes/CLASS_Pnj.js"></script>
         <script src="./sources/JS/classes/CLASS_Carte.js"></script>
         <script src="./sources/JS/classes/CLASS_Tuile.js"></script>
         <script src="./sources/JS/classes/CLASS_Sol.js"></script>
         <script src="./sources/JS/classes/CLASS_Mur.js"></script>
+        <script src="./sources/JS/classes/CLASS_Trou.js"></script>
 
         <script src="./sources/JS/initStage.js"></script>
 

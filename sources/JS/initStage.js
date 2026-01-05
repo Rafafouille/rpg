@@ -38,7 +38,7 @@ SCENE.addChild(circle);
                         ["mur","sol","sol","sol","sol","mur","sol","sol","sol","sol","sol","sol","mur"],
                         ["mur","sol:chemin","sol:chemin","sol:chemin","sol:chemin","sol:chemin","mur","sol","sol","sol","sol","sol","mur"],
                         ["mur","sol","mur","sol","mur","sol:chemin","sol","sol","sol","sol","sol","sol","mur"],
-                        ["mur","sol","sol","sol","sol","sol:chemin","sol","sol","sol","sol","sol","sol","mur"],
+                        ["mur","sol","sol","sol","sol","sol:chemin","sol","sol","sol","sol","trou","sol","mur"],
                         ["mur","sol","sol","sol","mur","sol:chemin","sol","sol","sol","sol","sol","sol","mur"],
                         ["mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur"]]
 
@@ -59,8 +59,10 @@ SCENE.addChild(circle);
 
 
 
-
-       
+        PNJ = new Pnj({POSITION:{X:6, Y:-3}});
+        SCENE.addChild(PNJ.objet)
+        LISTE_OBJETS.push(PNJ)
+      
 
         
 

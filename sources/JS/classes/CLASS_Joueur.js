@@ -31,8 +31,8 @@ class Joueur extends Personnage
                         };
 
         this.spriteSheet = new createjs.SpriteSheet(spriteData);
-        this.sprite = new createjs.Sprite(this.spriteSheet, "marche_bas");
-        this.sprite.scaleX=this.sprite.scaleY=3;
+        this.sprite = new createjs.Sprite(this.spriteSheet, "bas");
+        this.sprite.scaleX = this.sprite.scaleY=3;
         this.sprite.x = -74
         this.sprite.y = -105;
         this._contenu.addChild(this.sprite);
@@ -63,16 +63,30 @@ class Joueur extends Personnage
          super.update(_param_);
 
             //console.log(this._orientation)
-           if(this.updateOrientation())
-            {
-                if(this._orientation==1)
-                    this.sprite.gotoAndPlay("marche_droite")
-                else if(this._orientation==2)
-                    this.sprite.gotoAndPlay("marche_haut")
-                else if(this._orientation==3)
-                    this.sprite.gotoAndPlay("marche_gauche")
-                else if(this._orientation==4)
-                    this.sprite.gotoAndPlay("marche_bas")
+        if(this.mouvementChange())
+        {
+                if(this.estArrete())
+                {
+                    if(this._orientation==1)
+                        this.sprite.gotoAndStop("droite")
+                    else if(this._orientation==2)
+                        this.sprite.gotoAndStop("haut")
+                    else if(this._orientation==3)
+                        this.sprite.gotoAndStop("gauche")
+                    else if(this._orientation==4)
+                        this.sprite.gotoAndStop("bas")
+                }
+                else // Si on est en mouvement
+                {
+                    if(this._orientation==1)
+                        this.sprite.gotoAndPlay("marche_droite")
+                    else if(this._orientation==2)
+                        this.sprite.gotoAndPlay("marche_haut")
+                    else if(this._orientation==3)
+                        this.sprite.gotoAndPlay("marche_gauche")
+                    else if(this._orientation==4)
+                        this.sprite.gotoAndPlay("marche_bas")
+                }
             }
 
             //var patch = this.patch

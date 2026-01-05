@@ -21,6 +21,14 @@ function update(event)
         SCENE.y = -JOUEUR.y + $("#canvas").height() - UNITE*PADDING.y
 
 
+    // Tri des objets dans la scène selon leur coordonnée y
+    LISTE_OBJETS.sort((a, b) => b.Y - a.Y);
+    LISTE_OBJETS.forEach((obj) => {
+        SCENE.removeChild(obj.objet);
+        SCENE.addChild(obj.objet);
+    });
+
+
     // Tri avantplan / arriere plan
     //SCENE.children.sort((a, b) => a.y - b.y);
 }
