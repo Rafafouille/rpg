@@ -242,13 +242,6 @@ class Personnage extends ObjetGraphique
     }
 
 
-    /** Fonction qui renvoie la référence de la tuile qui se trouve sous le centre du personnage */
-    // ===>>>> EXISTE DEJA DANS LA CLASSE OBJETGRAPHIQUE <<<<===
-    //get tuileCentre()
-    //{
-    //    return CARTE.getTuile(this.X, this.Y)
-    //}   
-
     /** Fonction qui renvoie la référence de la tuile qui se trouve 1 longueur devant le personnage */
     get tuileDevant()
     {
@@ -261,6 +254,31 @@ class Personnage extends ObjetGraphique
         else if(this._orientation==4) // sud
             return CARTE.getTuile(this.X, this.Y - this.ANCHOR_Y - this.HEIGHT - 0.5)
     }    
+
+
+
+    // ===============================================================================
+    // ACTIONS DIVERSES
+    // ===============================================================================
+
+    /** Mourir */
+    mourir()
+    {
+        // Retire l'objet de la scène
+        this._contenu.parent.removeChild(this._contenu);
+
+        // On le retire de la liste des objets à updater
+        var index = LISTE_OBJETS.indexOf(this);
+        if(index > -1)
+            LISTE_OBJETS.splice(index, 1);
+    }
+
+
+    /** Le personnage tombe dans un trou */
+    tombeDansTrou()
+    {
+       this.mourir();
+    }
 
     // ===============================================================================
     // OBJET GRAPHIQUE
@@ -326,14 +344,42 @@ class Personnage extends ObjetGraphique
             }
             else // Si on est en mouvement
             {
-                if(this._orientation==1)
-                    this.sprite.gotoAndPlay("marche_droite")
-                else if(this._orientation==2)
-                    this.sprite.gotoAndPlay("marche_haut")
-                else if(this._orientation==3)
-                    this.sprite.gotoAndPlay("marche_gauche")
-                else if(this._orientation==4)
-                    this.sprite.gotoAndPlay("marche_bas")
+                if(this._vitesse>5)
+                {
+                    switch(this._orientation)
+                    {
+                        case 1:
+                            this.sprite.gotoAndPlay("court_droite")
+                            break;
+                        case 2:
+                            this.sprite.gotoAndPlay("court_haut")
+                            break;
+                        case 3:
+                            this.sprite.gotoAndPlay("court_gauche")
+                            break;
+                        case 4:
+                            this.sprite.gotoAndPlay("court_bas")
+                            break;
+                    }
+                }
+                else
+                {
+                    switch(this._orientation)
+                    {
+                        case 1:
+                            this.sprite.gotoAndPlay("marche_droite")
+                            break;
+                        case 2:
+                            this.sprite.gotoAndPlay("marche_haut")
+                            break;
+                        case 3:
+                            this.sprite.gotoAndPlay("marche_gauche")
+                            break;
+                        case 4:
+                            this.sprite.gotoAndPlay("marche_bas")
+                            break;
+                    }
+                }
             }
         }
 
@@ -348,6 +394,6 @@ class Personnage extends ObjetGraphique
 
         var tuileCentre = this.tuile
         if(tuileCentre)
-            tuileCentre.actionMarcheCentre()
+            tuileCentre.actionMarcheCentre(this)
     }
 }

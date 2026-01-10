@@ -7,7 +7,7 @@ class Joueur extends Personnage
     {
         super(_param_);
 
-
+        this.vitesse=10
 
         // ===============================================================================
         // GRAPHISMES
@@ -15,31 +15,36 @@ class Joueur extends Personnage
 
         // Mise en place des animations par sprite
         var spriteData = {
-                            images: ["sources/images/sprites/swordman_marche.png"],
+                            //images: ["sources/images/sprites/swordman_marche.png"],
+                            images: ["sources/images/sprites/hero.png"],
 
                             frames: {
-                                width: 64,     // largeur d’une frame (en pixels)
-                                height: 64,    // hauteur d’une frame
-                                count: 24      // nombre total de frames
+                                width: 48,     // largeur d’une frame (en pixels)
+                                height: 48,    // hauteur d’une frame
+                                count: 12*6      // nombre total de frames
                             },
 
                             animations: {
-                                bas : 5,
-                                gauche : 11,
-                                droite : 17,
-                                haut : 23,
-                                marche_bas:  [0, 5, "marche_bas", 0.15],
-                                marche_gauche:  [6, 11, "marche_gauche", 0.15],
-                                marche_droite: [12, 17, "marche_droite", 0.15],
-                                marche_haut:    [18, 23, "marche_haut", 0.15]
+                                bas : [0,3, "bas", 0.15],
+                                gauche : [6,9, "gauche", 0.15],
+                                droite : [12,15, "droite", 0.15],
+                                haut :  [18,21, "haut", 0.15],
+                                marche_bas:  [24, 29, "marche_bas", 0.15],
+                                marche_gauche:  [30, 35, "marche_gauche", 0.15],
+                                marche_droite: [36, 41, "marche_droite", 0.15],
+                                marche_haut:    [42, 47, "marche_haut", 0.15],
+                                court_bas:  [48, 53, "court_bas", 0.15],
+                                court_gauche:  [54, 59, "court_gauche", 0.15],
+                                court_droite: [60, 65, "court_droite", 0.15],
+                                court_haut:    [66, 71, "court_haut", 0.15]
                             }
                         };
 
         this.spriteSheet = new createjs.SpriteSheet(spriteData);
         this.sprite = new createjs.Sprite(this.spriteSheet, "bas");
-        this.sprite.scaleX = this.sprite.scaleY=3;
-        this.sprite.x = -74
-        this.sprite.y = -105;
+        this.sprite.scaleX = this.sprite.scaleY=2.5;
+        this.sprite.x = -38
+        this.sprite.y = -80
         this._contenu.addChild(this.sprite);
 
 
@@ -51,13 +56,12 @@ class Joueur extends Personnage
     // ===============================================================================
 
     /** Le joueur tombe dans un trou */
-    tombeDansTrou()
+    mourir()
     {
-        alert("Aie ! Vous êtes tombé dans un trou !");
         // On le renvoie au point de départ
-
+        AUTORISE_COMMANDE = false
         // On le respawn après 2 secondes
-        setTimeout(() => {this.respawn()}, 2000);   
+        setTimeout(() => {AUTORISE_COMMANDE = true;this.respawn()}, 2000);   
     }
     
 

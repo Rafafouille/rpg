@@ -25,7 +25,11 @@ class Pnj extends Personnage
                                 marche_bas:  [0, 5, "marche_bas", 0.15],
                                 marche_haut:  [6, 11, "marche_haut", 0.15],
                                 marche_gauche: [12, 17, "marche_gauche", 0.15],
-                                marche_droite:    [18, 23, "marche_droite", 0.15]
+                                marche_droite:    [18, 23, "marche_droite", 0.15],
+                                court_bas:  [0, 5, "court_bas", 0.15],
+                                court_haut:  [6, 11, "court_haut", 0.15],
+                                court_gauche: [12, 17, "court_gauche", 0.15],
+                                court_droite:    [18, 23, "court_droite", 0.15]
                             }
                         };
 
