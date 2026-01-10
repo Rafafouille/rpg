@@ -3,15 +3,23 @@
         // La carte 
         // ==============
 
-        var carte = [   ["mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur"],
-                        ["mur","sol","sol","sol","sol","sol","sol","sol","sol","sol","sol","sol","mur"],
-                        ["mur","sol","sol","sol","sol","sol","sol","sol","sol","sol","sol","sol","mur"],
-                        ["mur","sol","sol","sol","sol","mur","sol","sol","sol","sol","sol","sol","mur"],
-                        ["mur","sol:chemin","sol:chemin","sol:chemin","sol:chemin","sol:chemin","mur","sol","sol","sol","sol","sol","mur"],
-                        ["mur","sol","mur","sol","mur","sol:chemin","sol","sol","sol","sol","sol","sol","mur"],
-                        ["mur","sol","sol","sol","sol","sol:chemin","sol","sol","sol","sol","trou","sol","mur"],
-                        ["mur","sol","sol","sol","mur","sol:chemin","sol","sol","sol","sol","sol","sol","mur"],
-                        ["mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur","mur"]]
+
+
+        
+        HHH = {"nature": "mur", "type": "", "zIndex": 2}
+        ___ = {"nature": "sol", "type": "", "zIndex": 1}
+        xxx = {"nature": "sol", "type": "chemin", "zIndex": 2}
+        _O_ = {"nature": "trou", "": "chemin", "zIndex": 2}
+
+         var carte = [  [HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+                        [HHH,___,___,___,___,___,___,___,___,___,___,___,HHH],
+                        [HHH,___,___,___,___,___,___,___,___,___,___,___,HHH],
+                        [HHH,___,___,___,___,HHH,___,___,___,___,___,___,HHH],
+                        [HHH,xxx,xxx,xxx,xxx,xxx,HHH,___,___,___,___,___,HHH],
+                        [HHH,___,HHH,___,HHH,xxx,___,___,___,___,___,___,HHH],
+                        [HHH,___,___,___,___,xxx,___,___,___,___,_O_,___,HHH],
+                        [HHH,___,___,___,HHH,xxx,___,___,___,___,___,___,HHH],
+                        [HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH]]
 
         CARTE = new Carte(carte, [1,2], SCENE)
 

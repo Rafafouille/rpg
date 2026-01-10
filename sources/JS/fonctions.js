@@ -10,7 +10,7 @@ function norme(V)
 
 
 /** Charge le niveau */
-function charteNiveau(niveau)
+function chargeNiveau(niveau)
 {
     // On nettoie l'éventuel ancien niveau
     LISTE_OBJETS = []
@@ -25,3 +25,4 @@ function charteNiveau(niveau)
             alert("Erreur de chargement");
         });
 }
+

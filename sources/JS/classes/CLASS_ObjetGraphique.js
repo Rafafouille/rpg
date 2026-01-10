@@ -308,8 +308,10 @@ class ObjetGraphique
                     CARTE.getTuile(this.X-this.ANCHOR_X + this.WIDTH , this.Y-this.ANCHOR_Y),
                     CARTE.getTuile(this.X-this.ANCHOR_X , this.Y-this.ANCHOR_Y - this.HEIGHT),
                     CARTE.getTuile(this.X-this.ANCHOR_X + this.WIDTH , this.Y-this.ANCHOR_Y - this.HEIGHT)
-                ]
+            ]
 
+            // On nettoyer les patch qui sont undefined (hors carte)
+            patch = patch.filter(v => v !== undefined);
 
             // Si l'objet fait plus que 2 tuiles de large ou de haut, on ajoute les tuiles manquantes
             /*for(var X= this.X-this.ANCHOR_X; X<=this.X-this.ANCHOR_X+this.WIDTH ; X++)

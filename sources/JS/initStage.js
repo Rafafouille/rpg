@@ -21,6 +21,11 @@ function initStage()
         //Objets
         LISTE_OBJETS = [] // Liste des objets à updater
 
+        // On charge le 1er monde
+        chargeNiveau("test")
+
+
+        // Update de l'écran
         STAGE.update();
 
         // Boucle d'update

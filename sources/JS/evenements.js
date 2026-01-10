@@ -43,43 +43,50 @@ function update(event)
 window.addEventListener("keydown", (e) => {
     //isMoving = true;
 
-    switch (e.key) {
-        case "ArrowDown":
-            JOUEUR.direction_y = -1
-            break;
-        case "ArrowUp":
-            JOUEUR.direction_y = 1
-            break;
-        case "ArrowLeft":
-            JOUEUR.direction_x = -1
-            break;
-        case "ArrowRight":
-            JOUEUR.direction_x = 1
-            break;
-        // Quand on appuis sur Controle, on interagit avec la tuile devant le joueur
-        case "Control":
-            var tuileDevant = JOUEUR.tuileDevant
-            if(tuileDevant)
-                tuileDevant.action()
-            break
+
+    if(typeof(JOUEUR)!="undefined")
+    {
+        switch (e.key) {
+            case "ArrowDown":
+                JOUEUR.direction_y = -1
+                break;
+            case "ArrowUp":
+                JOUEUR.direction_y = 1
+                break;
+            case "ArrowLeft":
+                JOUEUR.direction_x = -1
+                break;
+            case "ArrowRight":
+                JOUEUR.direction_x = 1
+                break;
+            // Quand on appuis sur Controle, on interagit avec la tuile devant le joueur
+            case "Control":
+                var tuileDevant = JOUEUR.tuileDevant
+                if(tuileDevant)
+                    tuileDevant.action()
+                break
+            }
     }
 });
 
 window.addEventListener("keyup", (e) => {
     //isMoving = true;
 
-    switch (e.key) {
-        case "ArrowDown":
-            JOUEUR.direction_y = 0
-            break;
-        case "ArrowUp":
-            JOUEUR.direction_y = 0
-            break;
-        case "ArrowLeft":
-            JOUEUR.direction_x = 0
-            break;
-        case "ArrowRight":
-            JOUEUR.direction_x = 0
-            break;
+    if(typeof(JOUEUR)!="undefined")
+    {
+        switch (e.key) {
+            case "ArrowDown":
+                JOUEUR.direction_y = 0
+                break;
+            case "ArrowUp":
+                JOUEUR.direction_y = 0
+                break;
+            case "ArrowLeft":
+                JOUEUR.direction_x = 0
+                break;
+            case "ArrowRight":
+                JOUEUR.direction_x = 0
+                break;
+            }
     }
 });

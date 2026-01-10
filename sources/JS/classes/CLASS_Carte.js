@@ -69,7 +69,57 @@ class Carte
         
     creerMappingFromMat(_map_)
     {
+
+        // On transforme la matrice en liste d'objets (on met tout en 1 ligne)
+        var listeTuiles = []
         for(var i=0; i<_map_.length; i++)
+        {
+            for(var j=0; j<_map_[i].length; j++)
+            {
+                let element = structuredClone(_map_[i][j]) // On clone pour ne pas modifier l'original
+                element.pos = {X:this.getXfromJ(j), Y:this.getYfromI(i)}
+                element.posInitial = {i:i, j:j}
+                listeTuiles.push(element)
+            }
+        }
+
+
+        // On a une liste de type de tuile, avec leur position. On va pouvoir trier.
+        listeTuiles.sort((a, b) => a.zIndex - b.zIndex);
+
+
+        for(var k=0; k<listeTuiles.length; k++)
+            {
+                    var tuile
+                    var defTuile = listeTuiles[k];
+                    var nature =    defTuile.nature    ?? "";
+                    var type =      defTuile.type      ?? "";
+                    var zIndex =    defTuile.zIndex    ?? 0;
+                    var pos =       defTuile.pos       ?? {X:0,Y:0};
+
+                    //console.log(nature);
+                    switch (nature)
+                    {
+                        case "sol":
+                            tuile = new Sol({POSITION:pos},type);
+                            break;
+                        case "mur":
+                            tuile = new Mur({POSITION:pos},type);
+                            break;
+                        case "trou":
+                            tuile = new Trou({POSITION:pos});
+                            break;
+                        default:
+                            tuile = new Tuile({POSITION:pos});
+                            break;
+                    }
+                   // console.log([pos.X,pos.Y])
+                    this.#mapping[[pos.X,pos.Y]] = tuile
+            }
+        
+
+
+ /*       for(var i=0; i<_map_.length; i++)
         {
             for(var j=0; j<_map_[i].length; j++)
             {
@@ -77,9 +127,12 @@ class Carte
                 var pos = {X:this.getXfromJ(j), Y:this.getYfromI(i)}
                 if(_map_[i][j])
                 { 
-                    var nature="";
-                    var type="";
-                    [nature, type] = String(_map_[i][j]).split(":")
+                    // On récupère les infos de la tuile ij
+                    var defTuile = _map_[i][j];
+                    var nature =    defTuile.nature    ?? "";
+                    var type =      defTuile.type      ?? "";
+                    var zIndex =    defTuile.zIndex    ?? 0;
+
                     switch (nature)
                     {
                         case "sol":
@@ -99,6 +152,13 @@ class Carte
                 }
             }
         }
+*/
+        // Une fois créée, on trie le mapping par zIndex
+        // Pour rappel, Object.entries(obj) renvoie un tableau de tableaux [[key1, value1], [key2, value2], ...]
+        // avec keyN de la forme "X,Y" et valueN la tuile correspondante
+        
+
+
     }
 
     // =========================================
