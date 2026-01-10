@@ -8,3 +8,20 @@ function norme(V)
 }
 
 
+
+/** Charge le niveau */
+function charteNiveau(niveau)
+{
+    // On nettoie l'éventuel ancien niveau
+    LISTE_OBJETS = []
+    SCENE.removeAllChildren()
+
+    // On chagre le nouveau niveau
+    $.getScript('actionneur.php?niveau='+niveau)
+        .done(function (script, textStatus) {
+            console.log("Niveau récupéré")
+        })
+        .fail(function () {
+            alert("Erreur de chargement");
+        });
+}

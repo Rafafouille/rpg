@@ -10,15 +10,18 @@ function update(event)
 
 
     // Recentrer la carte
-    pos_abs = SCENE.localToGlobal(JOUEUR.x, JOUEUR.y)
-    if(pos_abs.x < UNITE*PADDING.x)
-        SCENE.x = -JOUEUR.x+UNITE*PADDING.x
-    if(pos_abs.x > $("#canvas").width() - UNITE*PADDING.x)
-        SCENE.x = -JOUEUR.x + $("#canvas").width() - UNITE*PADDING.x
-    if(pos_abs.y < UNITE*PADDING.y)
-        SCENE.y = -JOUEUR.y+UNITE*PADDING.y
-    if(pos_abs.y > $("#canvas").height() - UNITE*PADDING.y)
-        SCENE.y = -JOUEUR.y + $("#canvas").height() - UNITE*PADDING.y
+    if(typeof(JOUEUR)!="undefined")
+    {
+        pos_abs = SCENE.localToGlobal(JOUEUR.x, JOUEUR.y)
+        if(pos_abs.x < PADDING.x/100 * $("#canvas").width())
+            SCENE.x = -JOUEUR.x+PADDING.x/100 * $("#canvas").width()
+        if(pos_abs.x > $("#canvas").width() * (1-PADDING.x/100))
+            SCENE.x = -JOUEUR.x + $("#canvas").width() - PADDING.x/100 * $("#canvas").width()
+        if(pos_abs.y < PADDING.y/100 * $("#canvas").height())
+            SCENE.y = -JOUEUR.y+ PADDING.y/100 * $("#canvas").height()
+        if(pos_abs.y > $("#canvas").height() * (1-PADDING.y/100))
+            SCENE.y = -JOUEUR.y + $("#canvas").height() - PADDING.y/100 * $("#canvas").height()
+    }
 
 
     // Tri des objets dans la scène selon leur coordonnée y
