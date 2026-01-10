@@ -8,6 +8,11 @@ class Joueur extends Personnage
         super(_param_);
 
 
+
+        // ===============================================================================
+        // GRAPHISMES
+        // ===============================================================================
+
         // Mise en place des animations par sprite
         var spriteData = {
                             images: ["sources/images/sprites/swordman_marche.png"],
@@ -37,10 +42,23 @@ class Joueur extends Personnage
         this.sprite.y = -105;
         this._contenu.addChild(this.sprite);
 
+
     }
 
 
+    // ===============================================================================
+    // ACTIONS
+    // ===============================================================================
 
+    /** Le joueur tombe dans un trou */
+    tombeDansTrou()
+    {
+        alert("Aie ! Vous êtes tombé dans un trou !");
+        // On le renvoie au point de départ
+
+        // On le respawn après 2 secondes
+        setTimeout(() => {this.respawn()}, 2000);   
+    }
     
 
     // ===============================================================================
@@ -60,34 +78,10 @@ class Joueur extends Personnage
 
     update(_param_)
     {
+
          super.update(_param_);
 
-            //console.log(this._orientation)
-        if(this.mouvementChange())
-        {
-                if(this.estArrete())
-                {
-                    if(this._orientation==1)
-                        this.sprite.gotoAndStop("droite")
-                    else if(this._orientation==2)
-                        this.sprite.gotoAndStop("haut")
-                    else if(this._orientation==3)
-                        this.sprite.gotoAndStop("gauche")
-                    else if(this._orientation==4)
-                        this.sprite.gotoAndStop("bas")
-                }
-                else // Si on est en mouvement
-                {
-                    if(this._orientation==1)
-                        this.sprite.gotoAndPlay("marche_droite")
-                    else if(this._orientation==2)
-                        this.sprite.gotoAndPlay("marche_haut")
-                    else if(this._orientation==3)
-                        this.sprite.gotoAndPlay("marche_gauche")
-                    else if(this._orientation==4)
-                        this.sprite.gotoAndPlay("marche_bas")
-                }
-            }
+
 
             //var patch = this.patch
             //console.log(patch)

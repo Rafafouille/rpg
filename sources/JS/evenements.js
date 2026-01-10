@@ -38,7 +38,7 @@ function update(event)
 /* COMMANDES clavier */
 
 window.addEventListener("keydown", (e) => {
-    isMoving = true;
+    //isMoving = true;
 
     switch (e.key) {
         case "ArrowDown":
@@ -63,7 +63,7 @@ window.addEventListener("keydown", (e) => {
 });
 
 window.addEventListener("keyup", (e) => {
-    isMoving = true;
+    //isMoving = true;
 
     switch (e.key) {
         case "ArrowDown":

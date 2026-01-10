@@ -64,7 +64,14 @@ SCENE.addChild(circle);
         LISTE_OBJETS.push(PNJ)
       
 
+        PNJ2 = new Pnj({POSITION:{X:7, Y:-5}});
+        SCENE.addChild(PNJ2.objet)
+        LISTE_OBJETS.push(PNJ2)
+
         
+        PNJ3 = new Pnj({POSITION:{X:7, Y:0}});
+        SCENE.addChild(PNJ3.objet)
+        LISTE_OBJETS.push(PNJ3)
 
         STAGE.update();
 

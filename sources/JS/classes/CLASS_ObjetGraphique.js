@@ -70,7 +70,7 @@ class ObjetGraphique
 
     // Quelques méthodes
 
-    debug = true;
+    debug = false;
     
     // ===============================================================================
     // PARAMETRES GEOMETRIQUES

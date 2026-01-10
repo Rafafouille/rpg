@@ -8,17 +8,49 @@ class Personnage extends ObjetGraphique
         _param_.HEIGHT = 0.8
 
         super(_param_);
+
+        this._respawnPoint.X = this.X
+        this._respawnPoint.Y = this.Y
     }
 
 
 
-    
+    /** Position de respawn du personnage  (s'il meurt)*/
+    _respawnPoint = {"X":0, "Y":0}
+
+    /** Getter de la position de respawn */
+    get respawnPoint()
+        {return this._respawnPoint;}
+
+    /** Getters des coordonnées de respawn */
+    get respawnPoint_X()
+        {return this._respawnPoint.X;}
+
+    /** Getter des coordonnées de respawn */
+    get respawnPoint_Y()
+        {return this._respawnPoint.Y;}   
+    /** Setter de la position de respawn */
+    set respawnPoint(_r_)
+        {this._respawnPoint = _r_;}
+
+
+    /** Fonction qui replace le joueur sur son respawn point */
+    respawn()
+        {
+            this.X = this._respawnPoint.X
+            this.Y = this._respawnPoint.Y
+        }
+
     // ===============================================================================
     // DEPLACEMENTS
     // ===============================================================================
 
     /** Orientation du personnage : 1=est, 2=nord, 3=ouest, 4=sud */
     _orientation = 4
+
+    /** Ancienne orientation du personnage */
+    _orientation_OLD = 0
+
 
     /** Getter de l'orientation : 1=est, 2=nord, 3=ouest, 4=sud */
     get orientation()
@@ -30,6 +62,8 @@ class Personnage extends ObjetGraphique
     /** Fonction qui met à jour l'orientation en fonction de this._direction */
     updateOrientation()
         {
+            this._orientation_OLD = this._orientation;
+
             if(!this.estArrete())
             {
                 var angle = Math.atan2(this._direction.y, this._direction.x)
@@ -44,11 +78,19 @@ class Personnage extends ObjetGraphique
           }
         }
 
+    /** Fonction qui dit si l'orientation a changé */
+    orientationChange()
+        {
+            return this._orientation != this._orientation_OLD;
+        }
 
     /** Indique s'il y a eu un changement de mouvement (démarrage, arrêt, changement de direction) */
     mouvementChange()
         {
-            if(this._direction.x != this._old_direction.x || this._direction.y != this._old_direction.y)
+            if( (this._direction.x == 0 && this._old_direction.x!=0 )
+                || (this._direction.x != 0 && this._old_direction.x==0)
+                || (this._direction.y ==0 && this._old_direction.y!=0)
+                || (this._direction.y !=0 && this._old_direction.y==0))
             {
                 this._old_direction.x = this._direction.x
                 this._old_direction.y = this._direction.y
@@ -201,10 +243,11 @@ class Personnage extends ObjetGraphique
 
 
     /** Fonction qui renvoie la référence de la tuile qui se trouve sous le centre du personnage */
-    get tuileCentre()
-    {
-        return CARTE.getTuile(this.X, this.Y)
-    }   
+    // ===>>>> EXISTE DEJA DANS LA CLASSE OBJETGRAPHIQUE <<<<===
+    //get tuileCentre()
+    //{
+    //    return CARTE.getTuile(this.X, this.Y)
+    //}   
 
     /** Fonction qui renvoie la référence de la tuile qui se trouve 1 longueur devant le personnage */
     get tuileDevant()
@@ -266,6 +309,35 @@ class Personnage extends ObjetGraphique
                  this.repositionneHorsMurs()
         }
 
+
+        // Gestion des sprites
+        if(this.mouvementChange() || this.orientationChange())
+        {
+            if(this.estArrete())
+            {
+                if(this._orientation==1)
+                    this.sprite.gotoAndStop("droite")
+                else if(this._orientation==2)
+                    this.sprite.gotoAndStop("haut")
+                else if(this._orientation==3)
+                    this.sprite.gotoAndStop("gauche")
+                else if(this._orientation==4)
+                    this.sprite.gotoAndStop("bas")
+            }
+            else // Si on est en mouvement
+            {
+                if(this._orientation==1)
+                    this.sprite.gotoAndPlay("marche_droite")
+                else if(this._orientation==2)
+                    this.sprite.gotoAndPlay("marche_haut")
+                else if(this._orientation==3)
+                    this.sprite.gotoAndPlay("marche_gauche")
+                else if(this._orientation==4)
+                    this.sprite.gotoAndPlay("marche_bas")
+            }
+        }
+
+
         // Action quand on marche sur une tuile (au moins une tuile du patch)
         var patch = this.patch
         for(var i = 0; i < patch.length; i++)
@@ -274,7 +346,7 @@ class Personnage extends ObjetGraphique
             break;
         }
 
-        var tuileCentre = this.tuileCentre
+        var tuileCentre = this.tuile
         if(tuileCentre)
             tuileCentre.actionMarcheCentre()
     }

@@ -31,4 +31,25 @@ class Trou extends Sol
     {
        
     }
+
+
+    // ============================================
+    // Action
+    // ============================================
+    
+    action()
+    {
+        alert("Aie ! C'est un trou ! Tuile de type '"+this._type+"' et nature '"+this._nature+"' et coordonnées ("+this.X+","+this.Y+")");
+    }
+
+
+
+    /** Action réalisée quand le centre du personnage marge sur la tuile */
+    actionMarcheCentre(personnage=JOUEUR)
+    {
+        personnage.X = this.X
+        personnage.Y = this.Y
+        
+        personnage.tombeDansTrou()
+    }
 }

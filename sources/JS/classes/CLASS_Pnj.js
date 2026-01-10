@@ -5,6 +5,8 @@ class Pnj extends Personnage
     {
         super(_param_);
 
+        this.vitesse=1
+        
         // Mise en place des animations par sprite
         var spriteData = {
                             images: ["sources/images/sprites/orc_marche.png"],
@@ -42,33 +44,9 @@ class Pnj extends Personnage
     {
          super.update(_param_);
 
-                  if(this.mouvementChange())
-        {
-                if(this.estArrete())
-                {
-                    if(this._orientation==1)
-                        this.sprite.gotoAndStop("droite")
-                    else if(this._orientation==2)
-                        this.sprite.gotoAndStop("haut")
-                    else if(this._orientation==3)
-                        this.sprite.gotoAndStop("gauche")
-                    else if(this._orientation==4)
-                        this.sprite.gotoAndStop("bas")
-                }
-                else // Si on est en mouvement
-                {
-                    if(this._orientation==1)
-                        this.sprite.gotoAndPlay("marche_droite")
-                    else if(this._orientation==2)
-                        this.sprite.gotoAndPlay("marche_haut")
-                    else if(this._orientation==3)
-                        this.sprite.gotoAndPlay("marche_gauche")
-                    else if(this._orientation==4)
-                        this.sprite.gotoAndPlay("marche_bas")
-                }
-            }
 
-            //var patch = this.patch
-            //console.log(patch)
+            this.direction_x = JOUEUR.X-this.X
+            this.direction_y = JOUEUR.Y-this.Y
+
     }
 }

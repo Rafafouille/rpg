@@ -44,19 +44,19 @@ class Tuile extends ObjetGraphique
     // Action
     // ============================================
 
-    action()
+    action(personnage=JOUEUR)
     {
         alert("Rien d'intéressant ici... Tuile de type '"+this._type+"' et nature '"+this._nature+"' et coordonnées ("+this.X+","+this.Y+")");
     }
 
     /** Action réalisée quand le personnage marche sur la tuile (fait partie du patch) */
-    actionMarchPatch()
+    actionMarchPatch(personnage=JOUEUR)
     {
 
     }
 
     /** Action réalisée quand le centre du personnage marge sur la tuile */
-    actionMarcheCentre()
+    actionMarcheCentre(personnage=JOUEUR)
     {
 
     }
