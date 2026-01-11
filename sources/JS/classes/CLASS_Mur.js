@@ -14,10 +14,10 @@ class Mur extends Tuile
 
         switch(_type_)
         {
-            case "chemin":
-                this._type = "chemin"
-                var image = new createjs.Bitmap("./sources/images/sprites/chemin.png")
-                image.scaleX = image.scaleY = 1.75
+            case "buisson":
+                this._type = "buisson"
+                var image = new createjs.Bitmap("./sources/images/sprites/buisson.png")
+                image.scaleX = image.scaleY = 2.2
                 image.x = -5
                 image.y = -5
                 this._contenu.addChild(image)

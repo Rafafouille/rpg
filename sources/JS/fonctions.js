@@ -13,7 +13,7 @@ function norme(V)
 function chargeNiveau(niveau)
 {
     // On nettoie l'éventuel ancien niveau
-    LISTE_OBJETS = []
+    //CAR = []
     SCENE.removeAllChildren()
 
     // On chagre le nouveau niveau

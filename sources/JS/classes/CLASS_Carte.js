@@ -97,7 +97,6 @@ class Carte
                     var zIndex =    defTuile.zIndex    ?? 0;
                     var pos =       defTuile.pos       ?? {X:0,Y:0};
 
-                    //console.log(nature);
                     switch (nature)
                     {
                         case "sol":
@@ -113,53 +112,38 @@ class Carte
                             tuile = new Tuile({POSITION:pos});
                             break;
                     }
-                   // console.log([pos.X,pos.Y])
                     this.#mapping[[pos.X,pos.Y]] = tuile
             }
-        
-
-
- /*       for(var i=0; i<_map_.length; i++)
-        {
-            for(var j=0; j<_map_[i].length; j++)
-            {
-                var tuile
-                var pos = {X:this.getXfromJ(j), Y:this.getYfromI(i)}
-                if(_map_[i][j])
-                { 
-                    // On récupère les infos de la tuile ij
-                    var defTuile = _map_[i][j];
-                    var nature =    defTuile.nature    ?? "";
-                    var type =      defTuile.type      ?? "";
-                    var zIndex =    defTuile.zIndex    ?? 0;
-
-                    switch (nature)
-                    {
-                        case "sol":
-                            tuile = new Sol({POSITION:pos},type);
-                            break;
-                        case "mur":
-                            tuile = new Mur({POSITION:pos},type);
-                            break;
-                        case "trou":
-                            tuile = new Trou({POSITION:pos});
-                            break;
-                        default:
-                            tuile = new Tuile({POSITION:pos});
-                            break;
-                    }
-                    this.#mapping[this.getXYfromIJ(i,j)] = tuile
-                }
-            }
-        }
-*/
-        // Une fois créée, on trie le mapping par zIndex
-        // Pour rappel, Object.entries(obj) renvoie un tableau de tableaux [[key1, value1], [key2, value2], ...]
-        // avec keyN de la forme "X,Y" et valueN la tuile correspondante
-        
-
-
     }
+
+    // =================================================
+    // Liste des objets présents sur la catte
+    // =================================================
+
+    /** Liste des objets autre que les tuiles */
+    _liste_objets = [] 
+
+    /** Getter de la liste des objets */
+    get liste_objets()
+        {return this._liste_objets;}
+
+    /** Setter de la liste des objets */
+    set liste_objets(_liste_)
+        {this._liste_objets = _liste_;}
+
+    /** Ajoute un objet à la liste des objets  */
+    ajouteObjet(_obj_)
+    {
+        this._liste_objets.push(_obj_)
+    }
+
+    /** Vide la liste des objets */
+    videObjet()
+    {
+        this._liste_objets = []
+    }
+
+
 
     // =========================================
     // OUTILS

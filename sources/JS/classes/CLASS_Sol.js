@@ -20,6 +20,45 @@ class Sol extends Tuile
                 image.y = -7
                 this._contenu.addChild(image)
                 break
+            case "fleur":
+                var rect = new createjs.Shape();
+                rect.graphics.beginFill(COULEUR_SOL_DEFAUT).drawRect(-1, -1, UNITE+2, UNITE+2);
+                this._contenu.addChild(rect)
+                this._type = "fleur"
+                var hasard = Math.random();
+                if(hasard <= 0.25)
+                {
+                    var image = new createjs.Bitmap("./sources/images/sprites/fleur1.png")
+                    image.scaleX = image.scaleY = 3.6
+                    image.x = -0
+                    image.y = -20
+                    this._contenu.addChild(image)
+                }
+                else if(hasard <= 0.5)
+                {
+                    var image = new createjs.Bitmap("./sources/images/sprites/fleur2.png")
+                    image.scaleX = image.scaleY = 3.6
+                    image.x = -0
+                    image.y = -10
+                    this._contenu.addChild(image)
+                }
+                else if(hasard <= 0.75)
+                {
+                    var image = new createjs.Bitmap("./sources/images/sprites/fleur3.png")
+                    image.scaleX = image.scaleY = 3.6
+                    image.x = -5
+                    image.y = -40
+                    this._contenu.addChild(image)
+                }
+                else if(hasard <= 1)
+                {
+                    var image = new createjs.Bitmap("./sources/images/sprites/fleur4.png")
+                    image.scaleX = image.scaleY = 3.6
+                    image.x = -0
+                    image.y = -0
+                    this._contenu.addChild(image)
+                }
+                break
             default:
                 this._type = "defaut"
                 var rect = new createjs.Shape();

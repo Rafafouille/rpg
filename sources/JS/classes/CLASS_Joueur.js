@@ -7,7 +7,7 @@ class Joueur extends Personnage
     {
         super(_param_);
 
-        this.vitesse=10
+        this.vitesse=6
 
         // ===============================================================================
         // GRAPHISMES

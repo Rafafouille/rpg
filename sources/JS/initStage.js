@@ -18,11 +18,9 @@ function initStage()
         redimensionneCanvas(); // appel initial
 
 
-        //Objets
-        LISTE_OBJETS = [] // Liste des objets à updater
 
         // On charge le 1er monde
-        chargeNiveau("test")
+        chargeNiveau("cours")
 
 
         // Update de l'écran

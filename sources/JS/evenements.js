@@ -4,9 +4,6 @@
 /** Fonction principale, appelée à chaque tick, pour mettre à jour tous les objets stockés dans LISTE_OBJETS. */
 function update(event)
 {
-    // On met à jour chaque objet
-    LISTE_OBJETS.forEach((obj) => obj.update(event));
-    STAGE.update(event);
 
 
     // Recentrer la carte
@@ -23,23 +20,30 @@ function update(event)
             SCENE.y = -JOUEUR.y + $("#canvas").height() - PADDING.y/100 * $("#canvas").height()
     }
 
+    // MISE A JOUT DES OBJETS (personnages, etc.)
 
-    // Tri des objets dans la scène selon leur coordonnée y
-    LISTE_OBJETS.sort((a, b) => b.Y - a.Y);
-    LISTE_OBJETS.forEach((obj) => {
-        SCENE.removeChild(obj.objet);
-        SCENE.addChild(obj.objet);
-    });
+    if(typeof(CARTE)!="undefined")
+    {
+        // On met à jour chaque objet
+        CARTE.liste_objets.forEach((obj) => obj.update(event));
+        
+        // Tri des objets dans la scène selon leur coordonnée y
+        CARTE.liste_objets.sort((a, b) => b.Y - a.Y);
+        CARTE.liste_objets.forEach((obj) => {
+            SCENE.removeChild(obj.objet);
+            SCENE.addChild(obj.objet);
+        });
+    }
 
-
+    STAGE.update(event);
     // Tri avantplan / arriere plan
     //SCENE.children.sort((a, b) => a.y - b.y);
 }
 
 
-
-/* COMMANDES clavier */
-
+// ================================================================
+// COMMANDES clavier 
+// ================================================================
 window.addEventListener("keydown", (e) => {
     //isMoving = true;
 
@@ -90,3 +94,63 @@ window.addEventListener("keyup", (e) => {
             }
     }
 });
+
+
+
+
+
+// ================================================================
+// COMMANDES telephone 
+// ================================================================
+
+document.addEventListener("touchstart",
+                         function(event)
+                         {
+                            event.preventDefault();
+                            if(typeof(JOUEUR)!="undefined")
+                            {
+                                var touch = event.touches[0];
+                                TOUCHSTART_POSITION.x = touch.clientX;
+                                TOUCHSTART_POSITION.y = touch.clientY;
+                                TOUCH_POSITION.x = touch.clientX;
+                                TOUCH_POSITION.y = touch.clientY;
+                                IS_TOUCHING = true;
+                            }
+                        },
+                        {passive: false});
+
+document.addEventListener("touchmove",
+                         function(event)
+                         {
+                            //event.preventDefault();
+                            if(typeof(JOUEUR)!="undefined" && IS_TOUCHING)
+                            {
+                                var touch = event.touches[0];
+                                TOUCH_POSITION.x = touch.clientX;
+                                TOUCH_POSITION.y = touch.clientY;
+
+                                var dep = {"x":TOUCH_POSITION.x - TOUCHSTART_POSITION.x,
+                                           "y":-TOUCH_POSITION.y + TOUCHSTART_POSITION.y}
+
+                                // On vérifie que le déplacement est assez grand pour éviter les micro-mouvements
+                                if(norme(dep) > 30)
+                                {
+                                    JOUEUR.direction_x = dep.x;
+                                    JOUEUR.direction_y = dep.y;
+                                }
+                            }
+                        },
+                        {passive: false});
+
+
+document.addEventListener("touchend",
+                            function(event)
+                            {
+                                if(typeof(JOUEUR)!="undefined")
+                                {
+                                    IS_TOUCHING = false;
+                                    JOUEUR.direction_x = 0;
+                                    JOUEUR.direction_y = 0;
+                                }
+                            },
+                             {passive: false});

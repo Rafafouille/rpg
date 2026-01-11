@@ -189,7 +189,7 @@ class Personnage extends ObjetGraphique
     /** Indique si on a une collisaion avec un autre objet */
     collisionObjet()
     {
-        var objets = LISTE_OBJETS.filter((obj) => obj != this)
+        var objets = CARTE.liste_objets.filter((obj) => obj != this)
         for(var i = 0; i < objets.length; i++)
         {
             if(objets[i].X-this.X < objets[i].ANCHOR_X + this.WIDTH - this.ANCHOR_X
@@ -204,6 +204,7 @@ class Personnage extends ObjetGraphique
             }
 
         }
+        return false;
     }
 
 
@@ -268,9 +269,9 @@ class Personnage extends ObjetGraphique
         this._contenu.parent.removeChild(this._contenu);
 
         // On le retire de la liste des objets à updater
-        var index = LISTE_OBJETS.indexOf(this);
+        var index = CARTE.liste_objets.indexOf(this);
         if(index > -1)
-            LISTE_OBJETS.splice(index, 1);
+            CARTE.liste_objets.splice(index, 1);
     }
 
 

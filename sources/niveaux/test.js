@@ -5,11 +5,12 @@
 
 
 
-        
-        HHH = {"nature": "mur", "type": "", "zIndex": 2}
-        ___ = {"nature": "sol", "type": "", "zIndex": 1}
-        xxx = {"nature": "sol", "type": "chemin", "zIndex": 2}
-        _O_ = {"nature": "trou", "": "chemin", "zIndex": 2}
+
+        HHH = {nature: "mur", type: "chemin", zIndex: 2}
+        d88 = {nature: "mur", type: "buisson", zIndex: 2}
+        ___ = {nature: "sol", type: "", zIndex: 1}
+        xxx = {nature: "sol", type: "chemin", zIndex: 2}
+        _O_ = {nature: "trou", type: "", zIndex: 2}
 
          var carte = [  [HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
                         [HHH,___,___,___,___,___,___,___,___,___,___,___,HHH],
@@ -31,21 +32,21 @@
         // ==============
         JOUEUR = new Joueur({POSITION:{X:1, Y:0}});
         SCENE.addChild(JOUEUR.objet)
-        LISTE_OBJETS.push(JOUEUR)
+        CARTE.ajouteObjet(JOUEUR)
 
 
 
 
         PNJ = new Pnj({POSITION:{X:6, Y:-3}});
         SCENE.addChild(PNJ.objet)
-        LISTE_OBJETS.push(PNJ)
+        CARTE.ajouteObjet(PNJ)
       
 
         PNJ2 = new Pnj({POSITION:{X:7, Y:-5}});
         SCENE.addChild(PNJ2.objet)
-        LISTE_OBJETS.push(PNJ2)
+        CARTE.ajouteObjet(PNJ2)
 
         
         PNJ3 = new Pnj({POSITION:{X:7, Y:0}});
         SCENE.addChild(PNJ3.objet)
-        LISTE_OBJETS.push(PNJ3)
+        CARTE.ajouteObjet(PNJ3)
