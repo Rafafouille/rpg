@@ -131,16 +131,18 @@ class Carte
     set liste_objets(_liste_)
         {this._liste_objets = _liste_;}
 
-    /** Ajoute un objet à la liste des objets  */
+    /** Ajoute un objet à la liste des objets et le place à l'écran */
     ajouteObjet(_obj_)
     {
-        this._liste_objets.push(_obj_)
+        this.#SCENE.OBJETS.addChild(_obj_.objet)
+        this._liste_objets.push(_obj_) // Est-ce encore utile d'avoir cette liste, vu que les objets sont déjà dans le conteneur SCENE.OBJETS ?
     }
 
     /** Vide la liste des objets */
     videObjet()
     {
         this._liste_objets = []
+        this.#SCENE.OBJETS.removeAllChildren()
     }
 
 
@@ -183,9 +185,20 @@ class Carte
     /** Fonction qui redessinnee */
     redessine()
     {
+        this.#SCENE.SOL.removeAllChildren()
+        var xMin = Infinity
+        var xMax = -Infinity
+        var yMin = Infinity
+        var yMax = -Infinity
         for (const [key, value] of Object.entries(this.#mapping))
         {
-            this.#SCENE.addChild(value.objet)
+            this.#SCENE.SOL.addChild(value.objet)
+            xMin = Math.min(xMin, value.gauche)
+            xMax = Math.max(xMax, value.droite)
+            yMin = Math.min(yMin, value.haut)
+            yMax = Math.max(yMax, value.haut)
         }
+        //console.log("Cache de la carte : ", xMin, yMin, xMax - xMin, yMax - yMin)
+        this.#SCENE.SOL.cache(xMin, yMin, xMax - xMin, yMax - yMin)
     }
 }

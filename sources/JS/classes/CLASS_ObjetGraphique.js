@@ -1,4 +1,17 @@
-/** Class abstraite de touts les objets graphiques qui vont s'afficher à l'écran. */
+/** Class abstraite de touts les objets graphiques qui vont s'afficher à l'écran. 
+ * Hérite de createJS.Container
+ * _param_ : paramètres de configuration de l'objet graphique
+ *      - POSITION : {X: , Y: } position en unité de la MAP
+ *      - X : position horizontale en unité de la MAP
+ *      - Y : position verticale en unité de la MAP
+ *      - DIMENSIONS : {WIDTH: , HEIGHT: } dimensions en unité de la MAP
+ *      - WIDTH : largeur en unité de la MAP
+ *      - HEIGHT : hauteur en unité de la MAP
+ *      - ANCHOR : {X: , Y: } coordonnées locales du point correspondant aux coordonnées de l'objet, en unité de la MAP
+ *      - ANCHOR_X : coordonnées locales du point correspondant aux coordonnées de l'objet, en unité de la MAP
+ *      - ANCHOR_Y : coordonnées locales du point correspondant aux coordonnées de l'objet, en unité de la MAP
+ *      _redessine_ : booléen indiquant si on doit redessiner l'objet après traitement des paramètres (par défaut true)
+*/
 class ObjetGraphique
 {
     /** Constructeur */
@@ -6,13 +19,14 @@ class ObjetGraphique
     {
         // On crée l'objet graphique et un groupe à l'intérieur pour pouvoir faire des décallages
         this._objet = new createjs.Container() ;
+
+
+
+        // Contenu (groupe qui contiendra les éléments graphiques de l'objet)
         this._contenu = new createjs.Container();
+            this._contenu.type="contenuObjetGraphique"
             this._objet.addChild(this._contenu)
 
-        this.#cadre = new createjs.Shape();
-            this.#cadre.graphics.setStrokeStyle(2).beginStroke("red").drawRect(this.x-this.anchor_x, this.y-this.anchor_y, this.width, this.height);
-            this.#cadre.visible = false
-            this._objet.addChild(this.#cadre)
 
 
         //Traitement des paramètres
@@ -32,9 +46,9 @@ class ObjetGraphique
                 this._POSITION.Y = valeur;
                 break;
 
-                case "DIMENSION":
-                this._DIMENSION.WIDTH = valeur.WIDTH;
-                this._DIMENSION.HEIGHT = valeur.HEIGHT;
+                case "DIMENSIONS":
+                this._DIMENSIONS.WIDTH = valeur.WIDTH;
+                this._DIMENSIONS.HEIGHT = valeur.HEIGHT;
                 break;
 
                 case "WIDTH":
@@ -57,10 +71,38 @@ class ObjetGraphique
                 case "ANCHOR_Y":
                 this._ANCHOR.Y = valeur;
                 break;
+
+                case "bloquant":
+                this.bloquant = valeur;
+                break;
+
+                case "couleur":
+                this.couleur = valeur;
+                break;
+
+                case "nom":
+                this.nom = valeur;
+                break;
+
+                case "action":
+                this.action = valeur;
+                break;
+
+                default:
+                //console.warn("Paramètre inconnu dans ObjetGraphique : " + cle);
+                break;
             }
         }
 
 
+        
+
+        // Cadre pour le debug (permet de voir la position et la place physique de l'objet)
+        this.#cadre = new createjs.Shape();
+        this.#cadre.graphics.setStrokeStyle(2).beginStroke("blue").drawRect(-this.anchor_x,-this.anchor_y,this.width,this.height);
+        this.#cadre.visible = false
+        this.#cadre.type = "cadreDebug"
+        this.objet.addChild(this.#cadre)
 
         if(_redessine_)
             this.redessine();
@@ -68,12 +110,48 @@ class ObjetGraphique
     }
     
 
-    // Quelques méthodes
+
+    // ===============================================================================
+    // INFOS
+    // ===============================================================================
 
     debug = false;
+
+    /** Type d'objet */
+    get type()
+        {return "ObjetGraphique";}
+
+    /** Type d'objet avec héritage */
+    get typeComplet()
+        {return "ObjetGraphique";}
+
+    /** Nom de l'objet */
+    _nom = "";
+        /** Getter et setter du nom de l'objet */
+        get nom()
+            {return this._nom;}
+        /** Setter du nom de l'objet */
+        set nom(_n_)
+            {this._nom = String(_n_);}
+
+    /** Fonction de débug qui décline des informations sur l'objet dans la console */
+    ping()
+    {
+        if(this.nom=="")
+            console.log("<<<<<<<<<<<<<<<<<<<<<<<<<<")
+        else
+            console.log(this.nom+" <<<<<<<<<<<<<<<<<<<<<<<<<<")
+        console.log("- Type : " + this.typeComplet);
+        console.log("- Position : ( X : " + this.X + " ; Y : " + this.Y + " )  , ( x : " + this.x + " y : " + this.y + " )");
+        console.log("- Dimensions : ( WIDTH : " + this.WIDTH + " ; HEIGHT : " + this.HEIGHT+ " ) , ( width : " + this.width + " height : " + this.height + " )");
+        console.log("- Anchor : ( X : " + this.ANCHOR_X + " ; Y : " + this.ANCHOR_Y+ " ) , ( x : " + this.anchor_x + " y : " + this.anchor_y + " )");
+        console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>")
+    }
     
     // ===============================================================================
-    // PARAMETRES GEOMETRIQUES
+    // POSITION DE L'OBJET
+    // En majuscules : en unité de la MAP (Y>0 vers le haut)
+    // En minuscules : en unité de createJS (pixels, y>0 vers le bas)
     // ===============================================================================
     
     /** Position de l'objet*/
@@ -131,7 +209,11 @@ class ObjetGraphique
         get y()
             {return -this._POSITION.Y * UNITE}
     
-    /** Dimension de l'objet, en unité de la MAP*/
+    // ===============================================================================
+    // DIMENSIONS DE L'OBJET
+    // En majuscules : en unité de la MAP
+    // En minuscules : en unité de createJS (pixels)
+    // ===============================================================================
     _DIMENSIONS = {"WIDTH":1, "HEIGHT":1};
 
         /** Getter des dimensions en unité de la MAP */
@@ -187,6 +269,14 @@ class ObjetGraphique
             {return this._DIMENSIONS.HEIGHT * UNITE}
 
 
+    // ===========================================
+    // ANCHOR
+    // L'anchor définit le point local de l'objet qui correspond à ses coordonnées X et Y
+    // L'anchor (0,0) est en haut à gauche de l'objet (quelque soit le système de coordonnées map ou createjs)
+    // Par défaut, l'anchor est au centre bas de l'objet (0.5, -0.5) (dans le système de coordonnées de la MAP)
+    // Sinon, c'est (UNITE/2, UNITE/2) dans le système de coordonnées de createjs
+    // ===========================================
+
     /** Coordonnées locales du point correspondant aux coordonnées de l'objet. Cela correspond à l'opposé d'un Offset des objets graphiques*/
     _ANCHOR = {"X": 0.5, "Y": -0.5}
 
@@ -216,32 +306,89 @@ class ObjetGraphique
         get ANCHOR_Y()
             {return this._ANCHOR.Y;}
 
-        /** Getter de l'anchor dans les coordonnées de la MAP*/
+        /** Getter de l'anchor dans les coordonnées de createjs*/
         get anchor()
-            {return {"x":this._ANCHOR.X*UNITE, "y":this._ANCHOR.Y*UNITE};}
+            {return {"x":this._ANCHOR.X*UNITE, "y":-this._ANCHOR.Y*UNITE};}
 
-        /** Setter sur l'anchor sur X, en coordonnées de la MAP */
+        /** Setter sur l'anchor sur X, en coordonnées de createjs*/
         set anchor_x(_x_)
             {
                 this._ANCHOR.X = _x_ / UNITE ;
                 this.updatePositionObjet();
             }
 
-        /** Getter de l'anchor sur X, en coordonnées de la MAP */
+        /** Getter de l'anchor sur X, en coordonnées de createjs */
         get anchor_x()
             {return this._ANCHOR.X * UNITE;}
 
-        /** Setter sur l'anchor sur Y, en coordonnées de la MAP */
+        /** Setter sur l'anchor sur Y, en coordonnées de createjs*/
         set anchor_y(_y_)
             {
                 this._ANCHOR.Y = -_y_ / UNITE;
                 this.updatePositionObjet();
             }
 
-        /** Getter de l'anchor sur Y, en coordonnées de la MAP */
+        /** Getter de l'anchor sur Y, en coordonnées de createjs */
         get anchor_y()
             {return -this._ANCHOR.Y * UNITE;}
 
+        /** Renvoie l'équivalent de l'anchor, en partant de la droite  */
+        get ANCHOR_DROITE()
+            {return this.ANCHOR_X - this.WIDTH;}
+
+        /** Renvoie l'équivalent de l'anchor, en partant de la droite  */
+        get anchor_droite()
+            {return this.anchor_x - this.width}
+
+        get ANCHOR_BAS()
+            {return this.ANCHOR_Y + this.HEIGHT;}
+
+        get anchor_bas()
+            {return this.anchor_y - this.height;}
+
+        // ==========================================================================
+        // Quelques méthodes utiles par rapport au rectangle englobant de l'objet
+        // ==========================================================================
+
+        /** Getter de la coordonnée gauche de l'objet, en unité de la MAP */
+        get GAUCHE()
+            {return this.X - this.ANCHOR_X;}
+
+        get gauche()
+            {return this.x - this.anchor_x;}
+
+        /** Getter de la coordonnée droite de l'objet, en unité de la MAP */
+        get DROITE()
+            {return this.X - this.ANCHOR_X + this.WIDTH;}
+
+        get droite()
+            {return this.x - this.anchor_x + this.width;}
+
+        /** Getter de la coordonnée basse de l'objet, en unité de la MAP */
+        get BAS()
+            {return this.Y - this.ANCHOR_Y - this.HEIGHT;}
+
+        get bas()
+            {return this.y - this.anchor_y + this.height;}
+
+        /** Getter de la coordonnée haute de l'objet, en unité de la MAP */
+        get HAUT()
+            {return this.Y - this.ANCHOR_Y;}
+
+        get haut()
+            {return this.y - this.anchor_y;}
+
+        /** Getter qui dit si un point est dans l'objet dans les coordonnées de creatjs*/
+        estDansLObjet(_x_, _y_)
+            {
+                return _x_ >= this.gauche && _x_ <= this.droite && _y_ <= this.bas && _y_ >= this.haut;
+            }
+
+        /** Getter qui dit si un point est dans l'objet dans les coordonnées de la MAP*/
+        ESTDANSLOBJET(_x_, _y_)
+        {
+            return _x_ >= this.GAUCHE && _x_ <= this.DROITE && _y_ >= this.BAS && _y_ <= this.HAUT;
+        }
 
     // ===============================================================================
     // OBJET GRAPHIQUE
@@ -270,9 +417,16 @@ class ObjetGraphique
     redessine()
         {
             this._contenu.removeAllChildren();
-            var carre = new createjs.Shape();
+
+
+        /*    this.#cadre = new createjs.Shape();
+          //  this.#cadre.graphics.setStrokeStyle(2).beginStroke("blue").drawRect(this.x-this.anchor_x, this.y-this.anchor_y, this.width, this.height);
+            this.#cadre.graphics.setStrokeStyle(2).beginStroke("blue").drawRect(0,0,this.width,this.height);
+            this.#cadre.visible = true
+            this._contenu.addChild(this.#cadre)
+            /*var carre = new createjs.Shape();
             carre.graphics.beginFill(this.couleur).drawRect(0, 0, this.width, this.height);
-            this._contenu.addChild(carre);
+            this._contenu.addChild(carre);*/
         }
 
     /** Repositionne l'objet graphique */
@@ -282,6 +436,7 @@ class ObjetGraphique
         this._objet.y = this.y;
         this._contenu.x = -this.anchor_x;
         this._contenu.y = -this.anchor_y;
+        // Il faudrait aussi mettr à jour le #cadre
     }
 
 
@@ -325,6 +480,26 @@ class ObjetGraphique
         }
 
 
+    // ===============================================================================
+    // INTERACTION PERSONNAGE
+    // ===============================================================================
+
+    /** Indique si l'objet bloque le déplacement du personnage */
+    _bloquant = true;
+
+    /** Setter de la propriété bloquant */
+    set bloquant(_b_)
+        {this._bloquant = Boolean(_b_);}
+
+    /** Getter de la propriété bloquant */
+    get bloquant()
+        {return this._bloquant;}
+
+    /** Action que peut déclencher un personnage */
+    action()
+    {
+        ouvreDialog("Rien d'intéressant ici")
+    }
 
     // ===============================================================================
     // GRAPHISME

@@ -22,6 +22,22 @@ class Mur extends Tuile
                 image.y = -5
                 this._contenu.addChild(image)
                 break
+            case "barriere_H":
+                this._type = "barriere_H"
+                var image = new createjs.Bitmap("./sources/images/sprites/barriere_horizontale.png")
+                image.scaleX = image.scaleY = UNITE/image.image.width
+                image.x = 0
+                image.y = 3
+                this._contenu.addChild(image)
+                break
+            case "barriere_V":
+                this._type = "barriere_V"
+                var image = new createjs.Bitmap("./sources/images/sprites/barriere_verticale.png")
+                image.scaleX = image.scaleY = 0.3*UNITE/image.image.width
+                image.x = 17
+                image.y = -10
+                this._contenu.addChild(image)
+                break
             default:
                 this._type = "defaut"
                 var rect = new createjs.Shape();
@@ -42,7 +58,16 @@ class Mur extends Tuile
 
 
 
+    // ===============================================================================
+    // INFOS
+    // ===============================================================================
 
+    get type()
+        {return "Mur";}
+
+    /** Type d'objet avec héritage */
+    get typeComplet()
+        {return super.typeComplet + " >> Mur";}
 
     redessine()
     {

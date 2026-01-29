@@ -7,11 +7,7 @@ class Joueur extends Personnage
     {
         super(_param_);
 
-        this.vitesse=6
-
-        // ===============================================================================
-        // GRAPHISMES
-        // ===============================================================================
+        this.vitesse=3
 
         // Mise en place des animations par sprite
         var spriteData = {
@@ -50,6 +46,16 @@ class Joueur extends Personnage
 
     }
 
+    // ===============================================================================
+    // INFOS
+    // ===============================================================================
+
+    get type()
+        {return "Joueur";}
+
+    /** Type d'objet avec héritage */
+    get typeComplet()
+        {return super.typeComplet + " >> Joueur";}
 
     // ===============================================================================
     // ACTIONS

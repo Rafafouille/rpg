@@ -7,13 +7,51 @@ class Personnage extends ObjetGraphique
         _param_.WIDTH = 0.8
         _param_.HEIGHT = 0.8
 
+        _param_.ANCHOR = {"X":0.4, "Y":-0.4}
+
         super(_param_);
 
+
+        
         this._respawnPoint.X = this.X
         this._respawnPoint.Y = this.Y
+
+        //Traitement des paramètres
+        for (const [cle, valeur] of Object.entries(_param_))
+        {
+            switch (cle) {
+                case "vitesse":
+                this.vitesse = valeur;
+                break
+                
+                case "updateOrientation":
+                this.updateOrientation = valeur;
+                break
+
+                default:
+                //console.warn("Paramètre inconnu dans Personnage : " + cle);
+                break;
+            }
+        }
     }
 
 
+
+
+    // ===============================================================================
+    // INFOS
+    // ===============================================================================
+
+    get type()
+        {return "Personnage";}
+
+    /** Type d'objet avec héritage */
+    get typeComplet()
+        {return super.typeComplet + " >> Personnage";}
+
+    // ===============================================================================  
+    // POSITION DE RESPAWN
+    // ===============================================================================
 
     /** Position de respawn du personnage  (s'il meurt)*/
     _respawnPoint = {"X":0, "Y":0}
@@ -192,20 +230,24 @@ class Personnage extends ObjetGraphique
         var objets = CARTE.liste_objets.filter((obj) => obj != this)
         for(var i = 0; i < objets.length; i++)
         {
-            if(objets[i].X-this.X < objets[i].ANCHOR_X + this.WIDTH - this.ANCHOR_X
-                 &&
-               this.X - objets[i].X < this.ANCHOR_X + objets[i].WIDTH - objets[i].ANCHOR_X
-                &&
-               objets[i].Y - this.Y < objets[i].ANCHOR_Y + this.HEIGHT - this.ANCHOR_Y
-               &&
-               this.Y - objets[i].Y < this.ANCHOR_Y + objets[i].HEIGHT - objets[i].ANCHOR_Y)
+            if(objets[i].bloquant)
             {
-                return true;
+                if(objets[i].X-this.X <  objets[i].ANCHOR_X-this.ANCHOR_DROITE  //objets[i].ANCHOR_X + this.WIDTH - this.ANCHOR_X
+                    &&
+                this.X - objets[i].X <  this.ANCHOR_X - objets[i].ANCHOR_DROITE //this.ANCHOR_X + objets[i].WIDTH - objets[i].ANCHOR_X
+                    &&
+                objets[i].Y - this.Y <  objets[i].ANCHOR_BAS - this.ANCHOR_Y
+                &&
+                this.Y - objets[i].Y <  -objets[i].ANCHOR_Y+ this.ANCHOR_BAS // this.ANCHOR_Y + objets[i].HEIGHT - objets[i].ANCHOR_Y)
+                )
+                {
+                    return true;
+                }
             }
-
         }
         return false;
     }
+
 
 
     /** Repositionne le personnage en dehors des murs */
@@ -243,6 +285,33 @@ class Personnage extends ObjetGraphique
     }
 
 
+    // ===============================================================================
+    // INTERACTIONS AVEC LES TUILES ET OBJETS
+    // ===============================================================================
+
+    /** Distance de détection d'un objet (à partir du bord de la hitbox du personnage) */
+    _DISTANCE = 0.5
+    /** Getter Distance de détection d'un objet en unité createjs */
+    get distance()
+    {
+        return this._DISTANCE*UNITE;
+    }
+    /** Getter Distance de détection d'un objet en unité de tuile */
+    get DISTANCE()
+    {
+        return this._DISTANCE;
+    }
+    /** Setter Distance de détection d'un objet en unité de tuile */
+    set DISTANCE(_d_)
+    {
+        this._DISTANCE = Math.abs(_d_);
+    }
+    /** Setter Distance d'un objet en unité createjs */
+    set distance(_d_)
+    {
+        this._DISTANCE = Math.abs(_d_/UNITE);
+    }
+
     /** Fonction qui renvoie la référence de la tuile qui se trouve 1 longueur devant le personnage */
     get tuileDevant()
     {
@@ -254,9 +323,75 @@ class Personnage extends ObjetGraphique
             return CARTE.getTuile(this.X - this.ANCHOR_X - 0.5, this.Y)
         else if(this._orientation==4) // sud
             return CARTE.getTuile(this.X, this.Y - this.ANCHOR_Y - this.HEIGHT - 0.5)
-    }    
+
+        return null;
+    }
 
 
+    /** Fonction qui renvoie l'objet qui est 1 case devant */
+    get objetDevant()
+    {
+        var XX = null
+        var YY = null
+        if(this._orientation==1) // est
+        {
+            XX = this.DROITE + this._DISTANCE;
+            YY = this.Y;
+        }
+        else if(this._orientation==2) // nord
+        {
+            XX = this.X;
+            YY = this.HAUT + this._DISTANCE;
+        }
+        else if(this._orientation==3) // ouest
+        {
+            XX = this.GAUCHE - this._DISTANCE;
+            YY = this.Y;
+        }
+        else if(this._orientation==4) // sud
+        {
+            XX = this.X;
+            YY = this.BAS - this._DISTANCE;
+        }
+
+
+        for(var i = 0; i < CARTE.liste_objets.length; i++)
+        {
+            // On vérifie si la position est dans l'objet
+            if( CARTE.liste_objets[i].ESTDANSLOBJET(XX, YY) )
+                return CARTE.liste_objets[i];
+        }
+        return null;
+    }
+
+
+
+    /**
+     * Fonction d'interaction avec l'objet ou la tuile devant le personnage
+     */
+    interagit()
+    {
+        var objDevant = this.objetDevant;
+        if(objDevant)
+        {
+            //objDevant.ping();
+            objDevant.action();
+        }
+        else
+        {
+            var tuileDevant = this.tuileDevant;
+            if(tuileDevant)
+            {
+                //tuileDevant.ping();
+                tuileDevant.action();
+            }
+        }
+    }
+
+    /** Fonction qui s'exécute lorsqu'on interagit avec le personnage */
+    interaction()
+    {
+    }
 
     // ===============================================================================
     // ACTIONS DIVERSES
@@ -301,6 +436,7 @@ class Personnage extends ObjetGraphique
     // ===============================================================================
     // COMPORTEMENT
     // ===============================================================================
+
 
     /** Mise à jour  */
     update(_param_)

@@ -15,6 +15,18 @@ class Tuile extends ObjetGraphique
 
 
 
+    // ===============================================================================
+    // INFOS
+    // ===============================================================================
+
+    get type()
+        {return "Tuile";}
+
+    /** Type d'objet avec héritage */
+    get typeComplet()
+        {return super.typeComplet + " >> Tuile";}
+
+
     // ============================================
     // Nature de la tuile
     // ============================================
@@ -44,10 +56,10 @@ class Tuile extends ObjetGraphique
     // Action
     // ============================================
 
-    action(personnage=JOUEUR)
+    /*action(personnage=JOUEUR)
     {
         alert("Rien d'intéressant ici... Tuile de type '"+this._type+"' et nature '"+this._nature+"' et coordonnées ("+this.X+","+this.Y+")");
-    }
+    }*/
 
     /** Action réalisée quand le personnage marche sur la tuile (fait partie du patch) */
     actionMarchPatch(personnage=JOUEUR)

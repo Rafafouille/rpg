@@ -26,6 +26,18 @@ class Trou extends Sol
 
 
 
+    // ===============================================================================
+    // INFOS
+    // ===============================================================================
+
+    get type()
+        {return "Trou";}
+
+    /** Type d'objet avec héritage */
+    get typeComplet()
+        {return super.typeComplet + " >> Trou";}
+
+
 
     redessine()
     {

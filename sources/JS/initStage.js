@@ -7,8 +7,17 @@ function initStage()
 
         // Scène
         STAGE = new createjs.Stage("canvas");
+        //STAGE = new createjs.StageGL("canvas", {antialias: false});
         SCENE = new createjs.Container();
         STAGE.addChild(SCENE);
+
+        SOL = new createjs.Container();
+        SCENE.addChild(SOL);
+        SCENE.SOL = SOL;
+
+        OBJETS = new createjs.Container();
+        SCENE.addChild(OBJETS);
+        SCENE.OBJETS = OBJETS;
 
 
 
@@ -20,7 +29,7 @@ function initStage()
 
 
         // On charge le 1er monde
-        chargeNiveau("cours")
+        chargeNiveau("portail")
 
 
         // Update de l'écran
@@ -32,7 +41,7 @@ function initStage()
 
 
         // Supprimer l'antialiasing pour un effet pixel-art
-         document.getElementById("canvas").getContext("2d").imageSmoothingEnabled = false;
+        // document.getElementById("canvas").getContext("2d").imageSmoothingEnabled = false;
     }
 
 

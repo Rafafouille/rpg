@@ -5,7 +5,7 @@ $niveau = $_GET['niveau'] ?? null;
 
 
 // Liste des niveaux autorisés et on filtre l'accès
-$niveauxAutorise = ['test', 'cours'];
+$niveauxAutorise = ['test', 'portail'];
 
 if (!in_array($niveau, $niveauxAutorise)) {
     http_response_code(403);
@@ -21,8 +21,8 @@ switch ($niveau) {
         readfile(__DIR__ . "/sources/niveaux/test.js");
         break;
 
-    case 'cours':
-        readfile(__DIR__ . "/sources/niveaux/cours.js");
+    case 'portail':
+        readfile(__DIR__ . "/sources/niveaux/portail.js");
         break;
 
     default:

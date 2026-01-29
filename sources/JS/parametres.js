@@ -3,10 +3,13 @@
 UNITE = 50 
 
 /** Pourcentage de padding, par rapport à la taille de la fenêtre*/
-PADDING = {"x":30, "y":30}
+PADDING = {"x":40, "y":40}
 
 /** Booléen qui autorise les commande (ou pas) */
 AUTORISE_COMMANDE = true;
+
+/** Bloc les update */
+AUTORISE_UPDATE = true;
 
 /**   */
 COULEUR_SOL_DEFAUT = "#7cae59"

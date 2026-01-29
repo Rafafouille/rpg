@@ -95,6 +95,18 @@ class Sol extends Tuile
 
 
 
+    // ===============================================================================
+    // INFOS
+    // ===============================================================================
+
+    get type()
+        {return "Sol";}
+
+    /** Type d'objet avec héritage */
+    get typeComplet()
+        {return super.typeComplet + " >> Sol";}
+
+
 
     redessine()
     {

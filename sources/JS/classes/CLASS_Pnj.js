@@ -4,8 +4,6 @@ class Pnj extends Personnage
     constructor(_param_)
     {
         super(_param_);
-
-        this.vitesse=1
         
         // Mise en place des animations par sprite
         var spriteData = {
@@ -40,17 +38,51 @@ class Pnj extends Personnage
         this.sprite.y = -105;
         this._contenu.addChild(this.sprite);
 
+
+        //Traitement des paramètres
+        for (const [cle, valeur] of Object.entries(_param_))
+        {
+            switch (cle) {
+
+                case "comportement":
+                this.comportement = valeur;
+                break
+
+                default:
+                //console.warn("Paramètre inconnu dans Personnage : " + cle);
+                break;
+            }
+        }
+
     }
 
 
 
-       update(_param_)
+    // ===============================================================================
+    // INFOS
+    // ===============================================================================
+
+    get type()
+        {return "Pnj";}
+
+    /** Type d'objet avec héritage */
+    get typeComplet()
+        {return super.typeComplet + " >> Pnj";}
+
+
+    /** Comportement */
+    comportement()
+    {
+            this.direction_x = JOUEUR.X-this.X
+            this.direction_y = JOUEUR.Y-this.Y
+    }
+
+    /** Fonctionde mise à jour */
+    update(_param_)
     {
          super.update(_param_);
 
-
-            this.direction_x = JOUEUR.X-this.X
-            this.direction_y = JOUEUR.Y-this.Y
-
+        // Appel du comportement
+        this.comportement();
     }
 }
