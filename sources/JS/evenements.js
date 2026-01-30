@@ -14,8 +14,7 @@ function update(event)
             if(pos_abs.x < PADDING.x/100 * $("#canvas").width())
                 SCENE.x = -JOUEUR.x+PADDING.x/100 * $("#canvas").width() + 0.001 // +0.001 pour éviter les bugs d'arrondi
             if(pos_abs.x > $("#canvas").width() * (1-PADDING.x/100))
-            {    SCENE.x = -JOUEUR.x + $("#canvas").width() - PADDING.x/100 * $("#canvas").width() - 0.001 // -0.001 pour éviter les bugs d'arrondi
-            console.log("tpour")}
+                SCENE.x = -JOUEUR.x + $("#canvas").width() - PADDING.x/100 * $("#canvas").width() - 0.001 // -0.001 pour éviter les bugs d'arrondi
             if(pos_abs.y < PADDING.y/100 * $("#canvas").height())
                 SCENE.y = -JOUEUR.y+ PADDING.y/100 * $("#canvas").height()  + 0.001 // +0.001 pour éviter les bugs d'arrondi
             if(pos_abs.y > $("#canvas").height() * (1-PADDING.y/100))
@@ -68,7 +67,13 @@ window.addEventListener("keydown", (e) => {
                 break;
             // Quand on appuis sur Controle, on interagit avec la tuile devant le joueur
             case "Control":
-                JOUEUR.interagit()
+                if($("#dialog").dialog('isOpen')) // Si on est en train de parler ou autre...
+                    {
+                        clearInterval(MACHINE_A_ECRIRE); // On stop la machine à écrire
+                        $("#dialog").html(TEXTE_DIALOG_COURANT); // On affiche tout le texte d'un coup
+                    }
+                else
+                    JOUEUR.interagit()
                 break
             }
     }

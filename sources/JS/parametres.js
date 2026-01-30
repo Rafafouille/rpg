@@ -15,8 +15,13 @@ AUTORISE_UPDATE = true;
 COULEUR_SOL_DEFAUT = "#7cae59"
 
 
-/** Etat du clavier */
+/** VITESSE DIALOG */
 
+/** Machine à écrire  (Référence vers l'internal timer qui gère l'affichage progressif du texte) */
+MACHINE_A_ECRIRE = null;
+
+/** Texte courant à afficher dans la boite de dialogue */
+TEXTE_DIALOG_COURANT = "";
 
 /** Etat "touch" téléphone */
 

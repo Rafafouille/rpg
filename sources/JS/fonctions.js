@@ -50,11 +50,38 @@ function ouvreDialog(contenu,options={})
 */
 function updateDialog(liste)
 {
-        if(typeof(liste[0])=="string")
-            $("#dialog").html(liste[0])
-        else if(typeof(liste[0])=="function")
-            $("#dialog").html(liste[0]())
+    
+        // On efface le code initial
+        $("#dialog").html("")
 
+        // On supprime l'éventuel mécanisme de machine à écrire en cours
+        clearInterval(MACHINE_A_ECRIRE);
+
+
+        // Ce qu'on a à afficher
+        if(typeof(liste[0])=="string")
+            TEXTE_DIALOG_COURANT = liste[0]
+        else if(typeof(liste[0])=="function")
+            TEXTE_DIALOG_COURANT = liste[0]()
+
+        // Mécanisme de machine à écrire
+        let i = 0;
+        MACHINE_A_ECRIRE = setInterval(() => {
+                                            if (i < TEXTE_DIALOG_COURANT.length)
+                                            {
+                                                $("#dialog").append(TEXTE_DIALOG_COURANT.charAt(i));
+                                                i++;
+                                            }
+                                            else
+                                            {
+                                                clearInterval(MACHINE_A_ECRIRE);
+                                            }
+                                            }, 30);
+
+
+
+
+        // Gestion des boutons
         if(liste.length>1)
         {
             $("#dialog").dialog({
