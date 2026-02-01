@@ -7,7 +7,7 @@ class Joueur extends Personnage
     {
         super(_param_);
 
-        this.vitesse=3
+        this.vitesse=10
 
         // Mise en place des animations par sprite
         var spriteData = {
@@ -39,8 +39,8 @@ class Joueur extends Personnage
         this.spriteSheet = new createjs.SpriteSheet(spriteData);
         this.sprite = new createjs.Sprite(this.spriteSheet, "bas");
         this.sprite.scaleX = this.sprite.scaleY=2.5;
-        this.sprite.x = -38
-        this.sprite.y = -80
+        this.sprite.x = -39
+        this.sprite.y = -90
         this._contenu.addChild(this.sprite);
 
 

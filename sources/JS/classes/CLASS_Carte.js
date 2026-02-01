@@ -196,7 +196,7 @@ class Carte
             xMin = Math.min(xMin, value.gauche)
             xMax = Math.max(xMax, value.droite)
             yMin = Math.min(yMin, value.haut)
-            yMax = Math.max(yMax, value.haut)
+            yMax = Math.max(yMax, value.bas)
         }
         //console.log("Cache de la carte : ", xMin, yMin, xMax - xMin, yMax - yMin)
         this.#SCENE.SOL.cache(xMin, yMin, xMax - xMin, yMax - yMin)

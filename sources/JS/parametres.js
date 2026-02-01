@@ -11,11 +11,10 @@ AUTORISE_COMMANDE = true;
 /** Bloc les update */
 AUTORISE_UPDATE = true;
 
-/**   */
+/** Couleur par défaut du sol */
 COULEUR_SOL_DEFAUT = "#7cae59"
 
 
-/** VITESSE DIALOG */
 
 /** Machine à écrire  (Référence vers l'internal timer qui gère l'affichage progressif du texte) */
 MACHINE_A_ECRIRE = null;
@@ -30,3 +29,9 @@ TOUCH_POSITION = {"x":0, "y":0}
 TOUCHEND_POSITION = {"x":0, "y":0}
 IS_TOUCHING = false
 
+/** TAGS 
+ * Permet de stocker des informations globales sur l'avancement de l'aventure en cours
+*/
+AVENTURE = {
+    armoireElectriqueOuverte: false
+}

@@ -33,6 +33,12 @@ class Personnage extends ObjetGraphique
                 break;
             }
         }
+
+
+        // Ajout d'une ombre
+        var ombre = new createjs.Shape();
+        ombre.graphics.beginFill("rgba(0,0,0,0.2)").drawEllipse(-this.width*0.1,this.height/3, this.width*1.2, this.height/2);
+        this._contenu.addChildAt(ombre, 0);
     }
 
 
@@ -374,15 +380,16 @@ class Personnage extends ObjetGraphique
         var objDevant = this.objetDevant;
         if(objDevant)
         {
-            //objDevant.ping();
+            objDevant.ping();
             objDevant.action();
+            
         }
         else
         {
             var tuileDevant = this.tuileDevant;
             if(tuileDevant)
             {
-                //tuileDevant.ping();
+                tuileDevant.ping();
                 tuileDevant.action();
             }
         }

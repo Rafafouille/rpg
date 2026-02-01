@@ -20,6 +20,14 @@ class Sol extends Tuile
                 image.y = -7
                 this._contenu.addChild(image)
                 break
+            case "route":
+                this._type = "route"
+                var image = new createjs.Bitmap("./sources/images/sprites/bitume.png")
+                image.scaleX = image.scaleY = 1.01
+                image.x = -5
+                image.y = -7
+                this._contenu.addChild(image)
+                break
             case "fleur":
                 var rect = new createjs.Shape();
                 rect.graphics.beginFill(COULEUR_SOL_DEFAUT).drawRect(-1, -1, UNITE+2, UNITE+2);
