@@ -79,6 +79,7 @@ class Carte
                 let element = structuredClone(_map_[i][j]) // On clone pour ne pas modifier l'original
                 element.pos = {X:this.getXfromJ(j), Y:this.getYfromI(i)}
                 element.posInitial = {i:i, j:j}
+                element.voisinsIdentiques = getSufixeVoisinsIdentiques(_map_, i, j ) // Voisins identiques pour faire les jointures continues
                 listeTuiles.push(element)
             }
         }
@@ -96,14 +97,18 @@ class Carte
                     var type =      defTuile.type      ?? "";
                     var zIndex =    defTuile.zIndex    ?? 0;
                     var pos =       defTuile.pos       ?? {X:0,Y:0};
+                    var voisinsIdentiques = defTuile.voisinsIdentiques ?? "0000"; // Voisins identiques pour faire les jointures continues    
+
+                    // Recherche des tuiles identiques tout autour pour faire des jointures continues
+                    
 
                     switch (nature)
                     {
                         case "sol":
-                            tuile = new Sol({POSITION:pos},type);
+                            tuile = new Sol({POSITION:pos, voisinsIdentiques: voisinsIdentiques},type);
                             break;
                         case "mur":
-                            tuile = new Mur({POSITION:pos},type);
+                            tuile = new Mur({POSITION:pos, voisinsIdentiques: voisinsIdentiques},type);
                             break;
                         case "trou":
                             tuile = new Trou({POSITION:pos});

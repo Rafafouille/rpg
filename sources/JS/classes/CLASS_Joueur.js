@@ -85,7 +85,7 @@ class Joueur extends Personnage
         }
 
 
-
+    /** (Redéfinition) Fonction qui met à jour l'objet */
     update(_param_)
     {
 

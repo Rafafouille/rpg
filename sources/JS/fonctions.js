@@ -106,3 +106,39 @@ function updateDialog(liste)
         }
         setTimeout(() => {$(".ui-dialog:visible").find(".ui-dialog-buttonpane button:first") .focus();}, 0); // Pour remettre le focus pour la touche Entrer. Le settimeout laisse le temps à Jquery de refaire son bouton
 }
+
+
+/** Fonction qui renvoie une chaîne de caractère contenant des 1 (si voisin identique) et 0 (sinon)
+ * dans l'ordre : droite, haut, gauche, bas. Par exemple "1010" signifie que les tuiles de droite et de gauche sont identiques à la tuile courante, mais pas celles du haut et du bas.
+ * La fonction prend en argument la matrice de la carte, et les coordonnées i,j de la tuile dont on veut calculer le préfixe.
+ */
+function getSufixeVoisinsIdentiques(_map_, i, j )
+{
+    var prefixe = ""
+
+    // Droite
+    if(j<_map_[i].length-1 && _map_[i][j+1].type == _map_[i][j].type)
+        prefixe += "1"
+    else
+        prefixe += "0"
+
+    // Haut
+    if(i>0 && _map_[i-1][j].type == _map_[i][j].type)
+        prefixe += "1"
+    else
+        prefixe += "0"
+
+    // Gauche
+    if(j>0 && _map_[i][j-1].type == _map_[i][j].type)
+        prefixe += "1"
+    else
+        prefixe += "0"
+
+    // Bas
+    if(i<_map_.length-1 && _map_[i+1][j].type == _map_[i][j].type)
+        prefixe += "1"
+    else      
+        prefixe += "0"
+
+    return prefixe
+}

@@ -14,20 +14,130 @@ class Sol extends Tuile
         {
             case "chemin":
                 this._type = "chemin"
-                var image = new createjs.Bitmap("./sources/images/sprites/chemin.png")
+                /*var image = new createjs.Bitmap("./sources/images/sprites/chemin.png")
                 image.scaleX = image.scaleY = 3.6
                 image.x = -5
                 image.y = -7
-                this._contenu.addChild(image)
-                break
+                this._contenu.addChild(image)*/
+                var spriteSheet = new createjs.SpriteSheet({images: ["./sources/images/sprites/chemins.png"], frames: {width: 50, height: 50}});
+                var sprite = new createjs.Sprite(spriteSheet);
+                this._contenu.addChild(sprite);
+                switch (this.voisinsIdentiques)
+                {
+                    case "0000":
+                        sprite.gotoAndStop(12);
+                        break
+                    case "0001":
+                        sprite.gotoAndStop(2);
+                        break
+                    case "0010":
+                        sprite.gotoAndStop(9);
+                        break
+                    case "0011":
+                        sprite.gotoAndStop(5);
+                        break
+                    case "0100":
+                        sprite.gotoAndStop(14);
+                        break
+                    case "0101":
+                        sprite.gotoAndStop(16);
+                        break
+                    case "0110":
+                        sprite.gotoAndStop(11);
+                        break
+                    case "0111":
+                        sprite.gotoAndStop(3);
+                        break
+                    case "1000":
+                        sprite.gotoAndStop(7);
+                        break
+                    case "1001":
+                        sprite.gotoAndStop(4);
+                        break
+                    case "1010":
+                        sprite.gotoAndStop(17);
+                        break
+                    case "1011":
+                        sprite.gotoAndStop(13);
+                        break
+                    case "1100":
+                        sprite.gotoAndStop(10);
+                        break
+                    case "1101":
+                        sprite.gotoAndStop(1);
+                        break
+                    case "1110":
+                        sprite.gotoAndStop(15);
+                        break
+                    default:
+                        sprite.gotoAndStop(0);
+                        break
+                }
+            break
             case "route":
-                this._type = "route"
+                /*this._type = "route"
                 var image = new createjs.Bitmap("./sources/images/sprites/bitume.png")
                 image.scaleX = image.scaleY = 1.01
                 image.x = -5
                 image.y = -7
                 this._contenu.addChild(image)
-                break
+                break*/
+                var spriteSheet = new createjs.SpriteSheet({images: ["./sources/images/sprites/bitumes.png"], frames: {width: 50, height: 50}});
+                var sprite = new createjs.Sprite(spriteSheet);
+                this._contenu.addChild(sprite);
+                switch (this.voisinsIdentiques)
+                {
+                    case "0000":
+                        sprite.gotoAndStop(15);
+                        break
+                    case "0001":
+                        sprite.gotoAndStop(14);
+                        break
+                    case "0010":
+                        sprite.gotoAndStop(13);
+                        break
+                    case "0011":
+                        sprite.gotoAndStop(8);
+                        break
+                    case "0100":
+                        sprite.gotoAndStop(12);
+                        break
+                    case "0101":
+                        sprite.gotoAndStop(10);
+                        break
+                    case "0110":
+                        sprite.gotoAndStop(6);
+                        break
+                    case "0111":
+                        sprite.gotoAndStop(3);
+                        break
+                    case "1000":
+                        sprite.gotoAndStop(11);
+                        break
+                    case "1001":
+                        sprite.gotoAndStop(7);
+                        break
+                    case "1010":
+                        sprite.gotoAndStop(9);
+                        break
+                    case "1011":
+                        sprite.gotoAndStop(4);
+                        break
+                    case "1100":
+                        sprite.gotoAndStop(5);
+                        break
+                    case "1101":
+                        sprite.gotoAndStop(2);
+                        break
+                    case "1110":
+                        sprite.gotoAndStop(1);
+                        break
+                    default:
+                        sprite.gotoAndStop(0);
+                        break
+                }
+            break
+
             case "fleur":
                 var rect = new createjs.Shape();
                 rect.graphics.beginFill(COULEUR_SOL_DEFAUT).drawRect(-1, -1, UNITE+2, UNITE+2);
