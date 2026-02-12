@@ -17,6 +17,7 @@ class Mur extends Tuile
             case "buisson":
                 this._type = "buisson"
                 var image = new createjs.Bitmap("./sources/images/sprites/buisson.png")
+                ajouteObjetGraphiqueACharger(image.image)
                 image.scaleX = image.scaleY = 2.2
                 image.x = -5
                 image.y = -5
@@ -25,6 +26,7 @@ class Mur extends Tuile
             case "barriere_H":
                 this._type = "barriere_H"
                 var image = new createjs.Bitmap("./sources/images/sprites/barriere_horizontale.png")
+                ajouteObjetGraphiqueACharger(image.image)
                 image.scaleX = image.scaleY = UNITE/image.image.width
                 image.x = 0
                 image.y = 3
@@ -33,6 +35,7 @@ class Mur extends Tuile
             case "barriere_V":
                 this._type = "barriere_V"
                 var image = new createjs.Bitmap("./sources/images/sprites/barriere_verticale.png")
+                ajouteObjetGraphiqueACharger(image.image)
                 image.scaleX = image.scaleY = 0.3*UNITE/image.image.width
                 image.x = 17
                 image.y = -10
@@ -44,6 +47,7 @@ class Mur extends Tuile
                 rect.graphics.beginFill(COULEUR_SOL_DEFAUT).drawRect(-1, -1, UNITE+2, UNITE+2);
                 this._contenu.addChild(rect)
                 var image = new createjs.Bitmap("./sources/images/sprites/mur_gros_caillou.png")
+                ajouteObjetGraphiqueACharger(image.image)
                 image.scaleX=image.scaleY=1.4
                 image.y = -5
                 image.x = 2

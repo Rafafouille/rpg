@@ -19,7 +19,7 @@ class Carte
         this.creerMappingFromMat(_mat_)
 
 
-        this.redessine()
+        //this.redessine() <--- Cette fonction est appellée par la fonction incrementNbTuileChargees une fois les tuiles chargées
     }
 
 
@@ -88,7 +88,7 @@ class Carte
         // On a une liste de type de tuile, avec leur position. On va pouvoir trier.
         listeTuiles.sort((a, b) => a.zIndex - b.zIndex);
 
-
+        // On créé les objets tuile
         for(var k=0; k<listeTuiles.length; k++)
             {
                     var tuile
@@ -120,6 +120,8 @@ class Carte
                     this.#mapping[[pos.X,pos.Y]] = tuile
             }
     }
+
+
 
     // =================================================
     // Liste des objets présents sur la catte
@@ -187,6 +189,8 @@ class Carte
     // =========================================
     // GRAPHISMES
     // =========================================
+
+
     /** Fonction qui redessinnee */
     redessine()
     {

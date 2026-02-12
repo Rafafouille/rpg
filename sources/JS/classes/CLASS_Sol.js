@@ -14,13 +14,9 @@ class Sol extends Tuile
         {
             case "chemin":
                 this._type = "chemin"
-                /*var image = new createjs.Bitmap("./sources/images/sprites/chemin.png")
-                image.scaleX = image.scaleY = 3.6
-                image.x = -5
-                image.y = -7
-                this._contenu.addChild(image)*/
                 var spriteSheet = new createjs.SpriteSheet({images: ["./sources/images/sprites/chemins.png"], frames: {width: 50, height: 50}});
                 var sprite = new createjs.Sprite(spriteSheet);
+                ajouteObjetGraphiqueACharger(spriteSheet._images[0]) // Fonction qui détecte le moment où une image est chargée, en vue de déclencher la mise en cache un fois que tout est chargé
                 this._contenu.addChild(sprite);
                 switch (this.voisinsIdentiques)
                 {
@@ -75,15 +71,9 @@ class Sol extends Tuile
                 }
             break
             case "route":
-                /*this._type = "route"
-                var image = new createjs.Bitmap("./sources/images/sprites/bitume.png")
-                image.scaleX = image.scaleY = 1.01
-                image.x = -5
-                image.y = -7
-                this._contenu.addChild(image)
-                break*/
                 var spriteSheet = new createjs.SpriteSheet({images: ["./sources/images/sprites/bitumes.png"], frames: {width: 50, height: 50}});
                 var sprite = new createjs.Sprite(spriteSheet);
+                ajouteObjetGraphiqueACharger(spriteSheet._images[0]) // Fonction qui détecte le moment où une image est chargée, en vue de déclencher la mise en cache un fois que tout est chargé
                 this._contenu.addChild(sprite);
                 switch (this.voisinsIdentiques)
                 {
@@ -151,6 +141,7 @@ class Sol extends Tuile
                     image.x = -0
                     image.y = -20
                     this._contenu.addChild(image)
+                    ajouteObjetGraphiqueACharger(image.image)// Fonction qui détecte le moment où une image est chargée, en vue de déclencher la mise en cache un fois que tout est chargé
                 }
                 else if(hasard <= 0.5)
                 {
@@ -159,6 +150,7 @@ class Sol extends Tuile
                     image.x = -0
                     image.y = -10
                     this._contenu.addChild(image)
+                    ajouteObjetGraphiqueACharger(image.image)// Fonction qui détecte le moment où une image est chargée, en vue de déclencher la mise en cache un fois que tout est chargé
                 }
                 else if(hasard <= 0.75)
                 {
@@ -167,6 +159,7 @@ class Sol extends Tuile
                     image.x = -5
                     image.y = -40
                     this._contenu.addChild(image)
+                    ajouteObjetGraphiqueACharger(image.image)// Fonction qui détecte le moment où une image est chargée, en vue de déclencher la mise en cache un fois que tout est chargé
                 }
                 else if(hasard <= 1)
                 {
@@ -175,6 +168,7 @@ class Sol extends Tuile
                     image.x = -0
                     image.y = -0
                     this._contenu.addChild(image)
+                    ajouteObjetGraphiqueACharger(image.image)// Fonction qui détecte le moment où une image est chargée, en vue de déclencher la mise en cache un fois que tout est chargé
                 }
                 break
             default:
@@ -189,18 +183,21 @@ class Sol extends Tuile
                     var image = new createjs.Bitmap("./sources/images/sprites/sol_fleure_jaune.png")
                     image.scaleX=image.scaleY=2
                     this._contenu.addChild(image)
+                    ajouteObjetGraphiqueACharger(image.image)// Fonction qui détecte le moment où une image est chargée, en vue de déclencher la mise en cache un fois que tout est chargé
                 }
                 else if(hasard<0.04)
                 {
                     var image = new createjs.Bitmap("./sources/images/sprites/sol_petit_caillou.png")
                     image.scaleX=image.scaleY=2
                     this._contenu.addChild(image)
+                    ajouteObjetGraphiqueACharger(image.image)// Fonction qui détecte le moment où une image est chargée, en vue de déclencher la mise en cache un fois que tout est chargé
                 }
                 else if(hasard<0.14)
                 {
                     var image = new createjs.Bitmap("./sources/images/sprites/sol_touffe_herbe.png")
                     image.scaleX=image.scaleY=2
                     this._contenu.addChild(image)
+                    ajouteObjetGraphiqueACharger(image.image)// Fonction qui détecte le moment où une image est chargée, en vue de déclencher la mise en cache un fois que tout est chargé
                 }
                 break
         }

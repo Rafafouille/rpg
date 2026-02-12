@@ -23,7 +23,6 @@ MACHINE_A_ECRIRE = null;
 TEXTE_DIALOG_COURANT = "";
 
 /** Etat "touch" téléphone */
-
 TOUCHSTART_POSITION = {"x":0, "y":0}
 TOUCH_POSITION = {"x":0, "y":0}
 TOUCHEND_POSITION = {"x":0, "y":0}
@@ -35,3 +34,8 @@ IS_TOUCHING = false
 AVENTURE = {
     armoireElectriqueOuverte: false
 }
+
+
+
+/** Objet pour compter le nombre de tuile qui doivent ou qui sont chargée, pour pouvoir déclencher le cache */
+CHARGEMENT_TUILES = {"nbTuilesACharger":0, "nbTuilesDejaChargees":0}

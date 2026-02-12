@@ -12,6 +12,7 @@ class Trou extends Sol
         this._nature = "trou";
         
         var image = new createjs.Bitmap("./sources/images/sprites/sol_trou_herbe.png")
+        ajouteObjetGraphiqueACharger(image.image)
         image.scaleX = image.scaleY = 1.75
         image.x = -5
         image.y = -5

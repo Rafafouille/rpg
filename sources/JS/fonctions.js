@@ -142,3 +142,29 @@ function getSufixeVoisinsIdentiques(_map_, i, j )
 
     return prefixe
 }
+
+
+
+
+
+
+
+//CHARGEMENT_TUILES = {"nbTuileACharger":0, "nbTuileDejaChargees":0}
+
+/** Fonction  pour compter les graphismes de tuiles à charger*/
+function ajouteObjetGraphiqueACharger(objet)
+{
+    CHARGEMENT_TUILES.nbTuilesACharger++;    // On compte un objet à charger en plus
+    objet.addEventListener("load", () => {incrementNbTuileChargees();console.log("chargé")}); // On ajoute un événement à l'objet pour incrémenter le nombre de tuiles chargées quand il est chargé
+    console.log("Nombre de tuiles à charger : ", CHARGEMENT_TUILES.nbTuilesACharger)
+}
+
+
+/** Fonction qui incrémente le nombre de tuiles chargées et qui met en cache si ce nombre a atteint le max.*/
+    function incrementNbTuileChargees()
+    {
+        CHARGEMENT_TUILES.nbTuilesDejaChargees++;
+        console.log("Nombre de tuiles chargées : ", CHARGEMENT_TUILES.nbTuilesDejaChargees)
+        if (CHARGEMENT_TUILES.nbTuilesDejaChargees >= CHARGEMENT_TUILES.nbTuilesACharger)
+            CARTE.redessine();
+    }
