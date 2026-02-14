@@ -30,9 +30,11 @@ function update(event)
             
             // Tri des objets dans la scène selon leur coordonnée y
             CARTE.liste_objets.sort((a, b) => b.Y - a.Y);
+
+            // On remet les objets dans le bon ordre dans la scène
             CARTE.liste_objets.forEach((obj) => {
-                SCENE.removeChild(obj.objet);
-                SCENE.addChild(obj.objet);
+                SCENE.OBJETS.removeChild(obj.objet);
+                SCENE.OBJETS.addChild(obj.objet);
             });
         }
 

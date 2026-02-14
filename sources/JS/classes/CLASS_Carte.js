@@ -6,7 +6,7 @@ class Carte
       * I = n° de la ligne
       * J = n° de la colonne
      */
-    constructor(_mat_, _centre_, _scene_)
+    constructor(_mat_, _centre_)
     {
         
         this.#matOriginale = _mat_ ; // On sauvegarde la MAP
@@ -14,7 +14,7 @@ class Carte
         this.#offset.X = _centre_[0] ;
         this.#offset.Y = _centre_[1] ;
 
-        this.#SCENE = _scene_
+        //this.#SCENE = _scene_
 
         this.creerMappingFromMat(_mat_)
 
@@ -48,12 +48,7 @@ class Carte
                 this.#offset.X = _obj_.Y
             }
             
-    /** Conteneur dans lequel dessiner */
-    #SCENE = null
-
-    /** Getter du conteneur */
-    get SCENE()
-        {return this.#SCENE}
+    
 
 
     // =================================================
@@ -141,7 +136,7 @@ class Carte
     /** Ajoute un objet à la liste des objets et le place à l'écran */
     ajouteObjet(_obj_)
     {
-        this.#SCENE.OBJETS.addChild(_obj_.objet)
+        SCENE.OBJETS.addChild(_obj_.objet)
         this._liste_objets.push(_obj_) // Est-ce encore utile d'avoir cette liste, vu que les objets sont déjà dans le conteneur SCENE.OBJETS ?
     }
 
@@ -149,7 +144,7 @@ class Carte
     videObjet()
     {
         this._liste_objets = []
-        this.#SCENE.OBJETS.removeAllChildren()
+        SCENE.OBJETS.removeAllChildren()
     }
 
 
@@ -194,20 +189,20 @@ class Carte
     /** Fonction qui redessinnee */
     redessine()
     {
-        this.#SCENE.SOL.removeAllChildren()
+        SCENE.SOL.removeAllChildren()
         var xMin = Infinity
         var xMax = -Infinity
         var yMin = Infinity
         var yMax = -Infinity
         for (const [key, value] of Object.entries(this.#mapping))
         {
-            this.#SCENE.SOL.addChild(value.objet)
+            SCENE.SOL.addChild(value.objet)
             xMin = Math.min(xMin, value.gauche)
             xMax = Math.max(xMax, value.droite)
             yMin = Math.min(yMin, value.haut)
             yMax = Math.max(yMax, value.bas)
         }
         //console.log("Cache de la carte : ", xMin, yMin, xMax - xMin, yMax - yMin)
-        this.#SCENE.SOL.cache(xMin, yMin, xMax - xMin, yMax - yMin)
+        SCENE.SOL.cache(xMin, yMin, xMax - xMin, yMax - yMin)
     }
 }

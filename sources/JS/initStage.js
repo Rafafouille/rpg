@@ -7,14 +7,17 @@ function initStage()
 
         // Scène
         STAGE = new createjs.Stage("canvas");
-        //STAGE = new createjs.StageGL("canvas", {antialias: false});
+
+        // Conteneur de tous les éléments de la scène (peut être décalé pour recentrer la scène sur le personnage)
         SCENE = new createjs.Container();
         STAGE.addChild(SCENE);
 
+        // Groupe pour les tuiles du sol
         SOL = new createjs.Container();
         SCENE.addChild(SOL);
         SCENE.SOL = SOL;
 
+        // Groupe pour les objets (perso, éléments de décors, etc)
         OBJETS = new createjs.Container();
         SCENE.addChild(OBJETS);
         SCENE.OBJETS = OBJETS;

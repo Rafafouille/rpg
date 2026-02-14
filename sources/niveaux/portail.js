@@ -80,7 +80,7 @@
 
         CARTE = new Carte(carte, [46,44], SCENE)
 
-
+        $("#canvas").css("background-color", "#7cae59");
 
 
         // ==============
@@ -237,3 +237,4 @@
           }
           
         CARTE.ajouteObjet(armoireElectrique);
+
