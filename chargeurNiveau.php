@@ -28,3 +28,4 @@ switch ($niveau) {
     default:
         echo 'console.log("Niveau non-chargé");';
 }
+?>

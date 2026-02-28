@@ -89,7 +89,7 @@
         JOUEUR = new Joueur(
                 {
                   //POSITION:{X:0, Y:-5},
-                  POSITION:{X:-35, Y:-10},
+                  POSITION:{X:-20, Y:-10},
                   nom: "Héros"
                 });
         CARTE.ajouteObjet(JOUEUR)
@@ -110,7 +110,10 @@
         
         GARDIEN = new Pnj({
                       POSITION:{X:0, Y:0},
-                      action : function(){ouvreDialog(["Et bien ! Et bien ! C'est à cette heure-ci qu'on arrive, "+JOUEUR.nom+" ?","Je vais vous apprendre à arriver en retard en cours ! Dans mon bureau et que ça sa...", "Eh ! Oh ! Revenez ici !"]);},
+                      action : function(){
+                              PILE_ACTIONS.push(function(){ouvreDialog(["Et bien ! Et bien ! C'est à cette heure-ci qu'on arrive, "+JOUEUR.nom+" ?","Je vais vous apprendre à arriver en retard en cours ! Dans mon bureau et que ça sa...", "Eh ! Oh ! Revenez ici !"])});
+                              PILE_ACTIONS.push(function(){JOUEUR.direction.y=-1;setTimeout(function(){JOUEUR.direction.y=0;ACTION_EN_COURS=false;}, 500);});
+                              ;},
                       vitesse:2.7,
                       nom : "Pion",
                       comportement : function(){if(Math.abs(JOUEUR.X-this.X)>0.2){this.direction_x = JOUEUR.X-this.X}else{this.direction_x=0};this.orientation=2;},
@@ -187,8 +190,8 @@
 
         var voitureBleueDos = new ObjetImage({
                       source: "sources/images/objets/voiture_bleue_dos.png", // Chemin de l'image
-                      POSITION:{X:-9, Y:-10},  // Position sur la carte en cases
-                      ANCHOR:{X:1.5, Y:-2.5},  // Ancrage de l'image en case
+                      POSITION:{X:-9, Y:-9},  // Position sur la carte en cases
+                      ANCHOR:{X:1.5, Y:-1.5},  // Ancrage de l'image en case
                       DIMENSIONS:{WIDTH:3, HEIGHT:1.7}, // Dimensions de l'objet en cases
                       POSITION_IMAGE:{X:0,Y:0.8},  // Décalage de l'image à l'intérieur de l'objet en pixels (coordonnées par rapport à l'anchor)
                       ECHELLE_IMAGE:{X:1,Y:1},  // Échelle de l'image
@@ -198,8 +201,8 @@
 
         var voitureVerteDos = new ObjetImage({
                       source: "sources/images/objets/voiture_verte_dos.png", // Chemin de l'image
-                      POSITION:{X:-17, Y:-10},  // Position sur la carte en cases
-                      ANCHOR:{X:1.5, Y:-2.5},  // Ancrage de l'image en case
+                      POSITION:{X:-17, Y:-9.},  // Position sur la carte en cases
+                      ANCHOR:{X:1.5, Y:-1.5},  // Ancrage de l'image en case
                       DIMENSIONS:{WIDTH:3, HEIGHT:1.7}, // Dimensions de l'objet en cases
                       POSITION_IMAGE:{X:0,Y:0.8},  // Décalage de l'image à l'intérieur de l'objet en pixels (coordonnées par rapport à l'anchor)
                       ECHELLE_IMAGE:{X:1,Y:1},  // Échelle de l'image
@@ -207,7 +210,7 @@
                     });
         CARTE.ajouteObjet(voitureVerteDos);
 
-
+         // voitureVerteDos.afficheCadre=true
 
         if(AVENTURE.armoireElectriqueOuverte)
         {
@@ -218,7 +221,9 @@
                         DIMENSIONS:{WIDTH:0.75, HEIGHT:2}, // Dimensions de l'objet en cases
                         POSITION_IMAGE:{X:-2.25,Y:0.5},  // Décalage de l'image à l'intérieur de l'objet en pixels (coordonnées par rapport à l'anchor)
                         ECHELLE_IMAGE:{X:1,Y:1},  // Échelle de l'image
-                        action:function(){ouvreDialog(["L'armoire électrique est ouverte."]);},
+                        action:function(){
+                          PILE_ACTIONS.push(function(){ouvreDialog("L'armoire est ouverte !");});
+                            },
                         bloquant:true
                       });
           }
@@ -231,7 +236,10 @@
                         DIMENSIONS:{WIDTH:2, HEIGHT:2}, // Dimensions de l'objet en cases
                         POSITION_IMAGE:{X:-0.5,Y:1},  // Décalage de l'image à l'intérieur de l'objet en pixels (coordonnées par rapport à l'anchor)
                         ECHELLE_IMAGE:{X:1,Y:1},  // Échelle de l'image
-                        action:function(){ouvreDialog(["L'armoire électrique d'alimentation du lycée...","Tiens ? On dirait que le cadenas a été forcé..."]);}
+                        action:function(){
+                            PILE_ACTIONS.push(function(){ouvreDialog("L'armoire est fermée... Il faudrait trouver un moyen de l'ouvrir !");});
+                            PILE_ACTIONS.push(function(){chargeProbleme("armoireElectrique");});
+                          }
                       });
                       //armoireElectrique.afficheCadre=true
           }

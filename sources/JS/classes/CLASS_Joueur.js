@@ -7,7 +7,7 @@ class Joueur extends Personnage
     {
         super(_param_);
 
-        this.vitesse=10
+        this.vitesse=3
 
         // Mise en place des animations par sprite
         var spriteData = {

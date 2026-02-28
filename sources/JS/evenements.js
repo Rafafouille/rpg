@@ -5,6 +5,7 @@
 function update(event)
 {
 
+    // Si le niveau peut continuer à évoluer (pas de boite de dialogue ouverte, etc.)
     if(AUTORISE_UPDATE)
     {
         // Recentrer la carte
@@ -38,6 +39,17 @@ function update(event)
             });
         }
 
+
+        // Gestion des actions à faire (dans PILE_ACTIONS, qui est alimentée par les différentes fonctions du jeu, notamment les fonctions d'interaction)
+        if(PILE_ACTIONS.length > 0 && !ACTION_EN_COURS)
+        {
+            var action = PILE_ACTIONS.shift() // On prend la 1ere action de la pile
+            ACTION_EN_COURS = true; // On indique qu'une action est en cours
+            action();
+        }
+
+
+
         STAGE.update(event);
         // Tri avantplan / arriere plan
         //SCENE.children.sort((a, b) => a.y - b.y);
@@ -52,7 +64,7 @@ window.addEventListener("keydown", (e) => {
     //isMoving = true;
 
 
-    if(typeof(JOUEUR)!="undefined")
+    if(typeof(JOUEUR)!="undefined" && AUTORISE_COMMANDE)
     {
         switch (e.key) {
             case "ArrowDown":
@@ -84,7 +96,7 @@ window.addEventListener("keydown", (e) => {
 window.addEventListener("keyup", (e) => {
     //isMoving = true;
 
-    if(typeof(JOUEUR)!="undefined")
+    if(typeof(JOUEUR)!="undefined"  && AUTORISE_COMMANDE)
     {
         switch (e.key) {
             case "ArrowDown":

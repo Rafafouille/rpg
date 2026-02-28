@@ -36,7 +36,7 @@ function chargeNiveau(niveau)
                 console.log(SCENE.OBJETS.children.length)
 
                 // On chagre le nouveau niveau
-                $.getScript('actionneur.php?niveau='+niveau)
+                $.getScript('chargeurNiveau.php?niveau='+niveau)
                     .done(function (script, textStatus) { // Quand le script est chargé et exécuté, on réautorise les updates (le script chargé doit créer la carte et les tuiles, et ajouter les événements de chargement des tuiles pour incrémenter le nombre de tuiles chargées)
                         AUTORISE_UPDATE = true; // On réautorise les updates une fois le script chargé
                     })
@@ -121,7 +121,8 @@ function updateDialog(liste)
                          "Terminer": function()
                             {
                                 $("#dialog").dialog( "close" );
-                                AUTORISE_UPDATE = true;
+                                AUTORISE_UPDATE = true;  // Autorise la scene à bouger
+                                ACTION_EN_COURS = false;    // Autorise à passer à l'action suivante, s'il y en a une dans la pile
                             }
                         }
             })
@@ -170,14 +171,11 @@ function getSufixeVoisinsIdentiques(_map_, i, j )
 
 
 
-
-//CHARGEMENT_TUILES = {"nbTuileACharger":0, "nbTuileDejaChargees":0}
-
 /** Fonction  pour compter les graphismes de tuiles à charger*/
 function ajouteObjetGraphiqueACharger(objet)
 {
     CHARGEMENT_TUILES.nbTuilesACharger++;    // On compte un objet à charger en plus
-    objet.addEventListener("load", () => {incrementNbTuileChargees();console.log("chargé")}); // On ajoute un événement à l'objet pour incrémenter le nombre de tuiles chargées quand il est chargé
+    objet.addEventListener("load", () => {incrementNbTuileChargees();}); // On ajoute un événement à l'objet pour incrémenter le nombre de tuiles chargées quand il est chargé
     //console.log("Nombre de tuiles à charger : ", CHARGEMENT_TUILES.nbTuilesACharger)
 }
 
@@ -198,8 +196,25 @@ function ajouteObjetGraphiqueACharger(objet)
 
 
 
-// Fonction qui lance un problème à résoudre
-function lanceProbleme(probleme)
+// Fonction qui charge un problème à résoudre
+function chargeProbleme(probleme)
 {
+    AUTORISE_UPDATE = false;
+
+    console.log('chargeurProbleme.php?probleme='+probleme)
+     $.getScript('chargeurProbleme.php?probleme='+probleme)
+                    .done(function (script, textStatus) {  // script = le script chargé, textStatus = "success"
+                        $("#probleme").html(PROBLEME.render()); // On affiche le problème
+                        $("#probleme").dialog("open"); // On ouvre la boîte de dialogue du problème
+                    })
+                    .fail(function () {
+                        alert("Erreur de chargement du problème");
+                    });
+}
+
+function fermeProbleme()
+{
+    $("#probleme").dialog("close");
+    ACTION_EN_COURS = false;    // Autorise à passer à l'action suivante, s'il y en a une dans la pile
 
 }

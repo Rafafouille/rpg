@@ -39,3 +39,10 @@ AVENTURE = {
 
 /** Objet pour compter le nombre de tuile qui doivent ou qui sont chargée, pour pouvoir déclencher le cache */
 CHARGEMENT_TUILES = {"nbTuilesACharger":0, "nbTuilesDejaChargees":0}
+
+
+/** Pile d'action (liste de fonctions) qui doivent être exécutées les unes après les autres (ce sera le ticker qui les lancera, si la liste n'est pas vide et qu'une action n'est pas déjà en cours) */
+PILE_ACTIONS = []
+
+/** Booléen qui indique si une action est en cours d'exécution (pour éviter que le ticker n'en lance plusieurs en même temps) */
+ACTION_EN_COURS = false
