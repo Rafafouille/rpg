@@ -1,6 +1,20 @@
 
 
 
+
+
+/** Fonction qui met à jour la taille du canvas */
+function redimensionneCanvas()
+{
+    var canvas = document.getElementById("canvas")
+    canvas.width  = window.innerWidth-4;
+    canvas.height = window.innerHeight-4;
+    STAGE.update();
+}
+
+
+
+
 /** Fonction principale, appelée à chaque tick, pour mettre à jour tous les objets stockés dans LISTE_OBJETS. */
 function update(event)
 {
