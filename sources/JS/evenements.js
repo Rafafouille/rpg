@@ -54,19 +54,19 @@ function update(event)
         }
 
 
-        // Gestion des actions à faire (dans PILE_ACTIONS, qui est alimentée par les différentes fonctions du jeu, notamment les fonctions d'interaction)
-        if(PILE_ACTIONS.length > 0 && !ACTION_EN_COURS)
-        {
-            var action = PILE_ACTIONS.shift() // On prend la 1ere action de la pile
-            ACTION_EN_COURS = true; // On indique qu'une action est en cours
-            action();
-        }
-
-
-
         STAGE.update(event);
         // Tri avantplan / arriere plan
         //SCENE.children.sort((a, b) => a.y - b.y);
+    }
+
+
+
+    // Gestion des actions à faire (dans PILE_ACTIONS, qui est alimentée par les différentes fonctions du jeu, notamment les fonctions d'interaction)
+    if(PILE_ACTIONS.length > 0 && !ACTION_EN_COURS)
+    {
+        var action = PILE_ACTIONS.shift() // On prend la 1ere action de la pile
+        ACTION_EN_COURS = true; // On indique qu'une action est en cours
+        action();
     }
 }
 
@@ -95,13 +95,7 @@ window.addEventListener("keydown", (e) => {
                 break;
             // Quand on appuis sur Controle, on interagit avec la tuile devant le joueur
             case "Control":
-                if($("#dialog").dialog('isOpen')) // Si on est en train de parler ou autre...
-                    {
-                        clearInterval(MACHINE_A_ECRIRE); // On stop la machine à écrire
-                        $("#dialog").html(TEXTE_DIALOG_COURANT); // On affiche tout le texte d'un coup
-                    }
-                else
-                    JOUEUR.interagit()
+                fonctionAppuieSurCtrl()
                 break
             }
     }
@@ -136,19 +130,23 @@ window.addEventListener("keyup", (e) => {
 // ================================================================
 // COMMANDES telephone 
 // ================================================================
+const canvas = document.getElementById("canvas");
 
-document.addEventListener("touchstart",
+// On mets l'événement sur le canvas seul, pour éviter que preventDefault empêche le scroll de la page quand on n'est pas en train de jouer
+canvas.addEventListener("touchstart",
                          function(event)
                          {
-                            event.preventDefault();
-                            if(typeof(JOUEUR)!="undefined")
+                            if(typeof(JOUEUR)!="undefined" && AUTORISE_COMMANDE)
                             {
+                                event.preventDefault();
                                 var touch = event.touches[0];
                                 TOUCHSTART_POSITION.x = touch.clientX;
                                 TOUCHSTART_POSITION.y = touch.clientY;
                                 TOUCH_POSITION.x = touch.clientX;
                                 TOUCH_POSITION.y = touch.clientY;
                                 IS_TOUCHING = true;
+                                TOUCH_IS_MOUVING = false;
+                                DATE_DEBUT_TOUCH = Date.now();
                             }
                         },
                         {passive: false});
@@ -157,8 +155,9 @@ document.addEventListener("touchmove",
                          function(event)
                          {
                             //event.preventDefault();
-                            if(typeof(JOUEUR)!="undefined" && IS_TOUCHING)
+                            if(typeof(JOUEUR)!="undefined" && AUTORISE_COMMANDE && IS_TOUCHING)
                             {
+                                event.preventDefault();
                                 var touch = event.touches[0];
                                 TOUCH_POSITION.x = touch.clientX;
                                 TOUCH_POSITION.y = touch.clientY;
@@ -172,6 +171,7 @@ document.addEventListener("touchmove",
                                     JOUEUR.direction_x = dep.x;
                                     JOUEUR.direction_y = dep.y;
                                 }
+                                TOUCH_IS_MOUVING = true;
                             }
                         },
                         {passive: false});
@@ -180,11 +180,19 @@ document.addEventListener("touchmove",
 document.addEventListener("touchend",
                             function(event)
                             {
-                                if(typeof(JOUEUR)!="undefined")
+                                if(typeof(JOUEUR)!="undefined" && AUTORISE_COMMANDE)
                                 {
-                                    IS_TOUCHING = false;
-                                    JOUEUR.direction_x = 0;
-                                    JOUEUR.direction_y = 0;
+                                    // Si on fait un "click" avec le touch (pas de déplacement, ou déplacement très court, et durée courte), alors on interagit
+                                    if(!TOUCH_IS_MOUVING && Date.now() - DATE_DEBUT_TOUCH < MAX_DUREE_TOUCH_ACTION)
+                                    {
+                                        fonctionAppuieSurCtrl()
+                                    }
+                                    else // Sinon, on arrête le déplacement
+                                    {
+                                        IS_TOUCHING = false;
+                                        JOUEUR.direction_x = 0;
+                                        JOUEUR.direction_y = 0;
+                                    }
                                 }
                             },
                              {passive: false});

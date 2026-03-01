@@ -30,10 +30,7 @@ function chargeNiveau(niveau)
                 AUTORISE_UPDATE = false;
 
                 SCENE.SOL.removeAllChildren()
-
-                console.log(SCENE.OBJETS.children.length)
                 SCENE.OBJETS.removeAllChildren()
-                console.log(SCENE.OBJETS.children.length)
 
                 // On chagre le nouveau niveau
                 $.getScript('chargeurNiveau.php?niveau='+niveau)
@@ -201,7 +198,7 @@ function chargeProbleme(probleme)
 {
     AUTORISE_UPDATE = false;
 
-    console.log('chargeurProbleme.php?probleme='+probleme)
+    //console.log('chargeurProbleme.php?probleme='+probleme)
      $.getScript('chargeurProbleme.php?probleme='+probleme)
                     .done(function (script, textStatus) {  // script = le script chargé, textStatus = "success"
                         $("#probleme").html(PROBLEME.render()); // On affiche le problème
@@ -217,4 +214,15 @@ function fermeProbleme()
     $("#probleme").dialog("close");
     ACTION_EN_COURS = false;    // Autorise à passer à l'action suivante, s'il y en a une dans la pile
 
+}
+
+function fonctionAppuieSurCtrl()
+{
+    if($("#dialog").dialog('isOpen')) // Si on est en train de parler ou autre...
+        {
+            clearInterval(MACHINE_A_ECRIRE); // On stop la machine à écrire
+            $("#dialog").html(TEXTE_DIALOG_COURANT); // On affiche tout le texte d'un coup
+        }
+    else
+        JOUEUR.interagit()
 }

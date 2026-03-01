@@ -3,14 +3,28 @@
 
         <link rel="icon" type="image/png" href="favicon.ico">
 
-        <!-- Bibliothèques ============================================== -->
+        <!-- Bibliothèques principales ============================================== -->
         <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
         
         <!--<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>-->
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/smoothness/jquery-ui.css">
         <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
         <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+
+        <!-- Style ===================================================== -->
+         <link rel="stylesheet" href="./sources/style/style.css" />
+
+    </head>
+    <body onload="initStage();">
+        <!-- Canvas (la scène principale) ==================================================== -->
+        <canvas id="canvas" width="500" height="200" style="border:solid 1px"></canvas>
+
+        <!-- Boites JQUERY-UI ==================================================== -->
+        <?php include("./sources/PHP/boites.php") ?>
+
+
         <!-- Scripts ==================================================== -->
+        <!-- On les a mis à la fin de la page, pour faciliter notamment l'affectation des événements à la balise canvas, qui doit être préalablement créée -->
         <script src="./sources/JS/fonctions.js"></script>
         <script src="./sources/JS/parametres.js"></script>
         <script src="./sources/JS/evenements.js"></script>
@@ -27,15 +41,6 @@
 
         <script src="./sources/JS/initStage.js"></script>
 
-        <!-- Style ===================================================== -->
-         <link rel="stylesheet" href="./sources/style/style.css" />
-
-    </head>
-    <body onload="initStage();">
-        <canvas id="canvas" width="500" height="200" style="border:solid 1px"></canvas>
-
-
-        <?php include("./sources/PHP/boites.php") ?>
     </body>
 </html>
 

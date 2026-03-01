@@ -26,7 +26,11 @@ TEXTE_DIALOG_COURANT = "";
 TOUCHSTART_POSITION = {"x":0, "y":0}
 TOUCH_POSITION = {"x":0, "y":0}
 TOUCHEND_POSITION = {"x":0, "y":0}
-IS_TOUCHING = false
+IS_TOUCHING = false // vrai quand le joueur est en train de toucher l'écran (pour différencier un touch pour se déplacer d'un touch pour interagir)
+TOUCH_IS_MOUVING = false // vrai quand le joueur est en train de se déplacer (pour différencier un touch pour se déplacer d'un touch pour interagir)
+DATE_DEBUT_TOUCH = 0 // timestamp du moment où le joueur a commencé à toucher l'écran (pour différencier un touch pour se déplacer d'un touch pour interagir)
+MAX_DUREE_TOUCH_ACTION = 500 // durée maximale (en ms) d'un touch pour être considéré comme une action (plutôt qu'un déplacement)
+
 
 /** TAGS 
  * Permet de stocker des informations globales sur l'avancement de l'aventure en cours
