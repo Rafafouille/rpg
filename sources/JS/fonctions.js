@@ -53,6 +53,9 @@ function chargeNiveau(niveau,positionInitiale = {X:0,Y:0})
 
 /** Fonction qui ouvre une boite de dialog
  * "contenu" peut être une chaîne de caractère ou une liste de chaînes de caractères, correspondant à chaque "page" à afficher.
+ * Le début de chaque chaîne de caractère peut être précédé de "Nom de la personne qui parle|" (avec le | comme séparateur)
+ * Si le nom de la personne n'est pas spécifié, ce sera le nom du joueur par défaut.
+ * Pour ne rien mettre, il faut simplement commencer par "| puis mon texte"
  * De manière récurcive, la fonction affiche le 1er élément, et intègre dans le bouton de la boite de dialogue la même liste moins la 1ere page.
 */
 function ouvreDialog(contenu,options={})
@@ -87,6 +90,17 @@ function updateDialog(liste)
             TEXTE_DIALOG_COURANT = liste[0]
         else if(typeof(liste[0])=="function")
             TEXTE_DIALOG_COURANT = liste[0]()
+
+        //Si un titre est caché dans le texte, séparé par |, on le met dans le titre de la boîte de dialogue
+        let TITRE_DIALOG_COURANT = JOUEUR.titreDialogue; // Par défaut, le titre est celui du joueur
+        if(TEXTE_DIALOG_COURANT.includes("|"))
+        {
+            let parts = TEXTE_DIALOG_COURANT.split("|");
+            TITRE_DIALOG_COURANT = parts[0];
+            TEXTE_DIALOG_COURANT = parts[1];
+        }
+        $("#dialog").dialog("option", "title", TITRE_DIALOG_COURANT);
+
 
         // Mécanisme de machine à écrire
         let i = 0;
@@ -218,6 +232,7 @@ function fermeProbleme()
 {
     $("#probleme").dialog("close");
     ACTION_EN_COURS = false;    // Autorise à passer à l'action suivante, s'il y en a une dans la pile
+    AUTORISE_UPDATE = true;
 
 }
 
