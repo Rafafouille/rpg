@@ -85,6 +85,24 @@ class Personnage extends ObjetGraphique
             this.Y = this._respawnPoint.Y
         }
 
+    /** Fonction qui place le personnage à une position donnée au début du niveau dans les coordonnées de la MAP*/
+    START(X, Y)
+        {
+            this.X = X
+            this.Y = Y
+            this._respawnPoint.X = this.X
+            this._respawnPoint.Y = this.Y
+        }
+
+    /** Fonction qui place le personnage à une position donnée au début du niveau dans les coordonnées du canvas*/
+    start(x,y)
+    {
+        this.x = x
+        this.y = y
+        this._respawnPoint.x = this.x
+        this._respawnPoint.y = this.y
+    }
+
     // ===============================================================================
     // DEPLACEMENTS
     // ===============================================================================

@@ -18,7 +18,7 @@ function norme(V)
 * - Les objets-tuiles sont créé et ajouté à la scène. Leur graphisme est chargé de manière asynchrone. On compte les tuiles et on ajoute un événement aux tuiles pour savoir quand elles sont chargées.
 * - Quand toutes les tuiles sont chargées, on redessine la carte et on mets en cache.
 */
-function chargeNiveau(niveau)
+function chargeNiveau(niveau,positionInitiale = {X:0,Y:0})
 {
 
     // On fait une fondu pour faire disparaître l'objet SCENE, pour éviter que le joueur puisse voir les tuiles se charger une à une
@@ -36,6 +36,11 @@ function chargeNiveau(niveau)
                 $.getScript('chargeurNiveau.php?niveau='+niveau)
                     .done(function (script, textStatus) { // Quand le script est chargé et exécuté, on réautorise les updates (le script chargé doit créer la carte et les tuiles, et ajouter les événements de chargement des tuiles pour incrémenter le nombre de tuiles chargées)
                         AUTORISE_UPDATE = true; // On réautorise les updates une fois le script chargé
+                        if(JOUEUR)
+                        {
+                            //console.log(positionInitiale)
+                            JOUEUR.START(positionInitiale.X, positionInitiale.Y); // On place le joueur à sa position initiale
+                        }
                     })
                     .fail(function () {
                         alert("Erreur de chargement");

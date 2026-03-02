@@ -89,7 +89,7 @@
         JOUEUR = new Joueur(
                 {
                   //POSITION:{X:0, Y:-5},
-                  POSITION:{X:-20, Y:-10},
+                  //POSITION:{X:-20, Y:-10},
                   nom: "Héros"
                 });
         CARTE.ajouteObjet(JOUEUR)
@@ -237,7 +237,7 @@
                         POSITION_IMAGE:{X:-0.5,Y:1},  // Décalage de l'image à l'intérieur de l'objet en pixels (coordonnées par rapport à l'anchor)
                         ECHELLE_IMAGE:{X:1,Y:1},  // Échelle de l'image
                         action:function(){
-                            PILE_ACTIONS.push(function(){ouvreDialog("L'armoire est fermée... Il faudrait trouver un moyen de l'ouvrir !");});
+                            PILE_ACTIONS.push(function(){ouvreDialog(["C'est une armoire électrique. Elle est fermée","Tiens ? On dirait que le cadenas est à moitié cassé...","Je peux voir le mécanisme à l'intérieur."]);});
                             PILE_ACTIONS.push(function(){chargeProbleme("armoireElectrique");});
                           }
                       });

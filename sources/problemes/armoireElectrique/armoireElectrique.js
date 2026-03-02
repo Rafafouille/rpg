@@ -24,7 +24,7 @@ PROBLEME = {
     success: function() {
             AVENTURE.armoireElectriqueOuverte = true; // On met à jour le tag correspondant
             PILE_ACTIONS.push(function(){ouvreDialog("Bonne réponse ! Vous avez réussi à ouvrir l'armoire électrique !");});
-            PILE_ACTIONS.push(function(){chargeNiveau("portail")});
+            PILE_ACTIONS.push(function(){chargeNiveau("portail",{X:-39,Y:-14})});
             fermeProbleme();
 
         },

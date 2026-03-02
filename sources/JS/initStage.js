@@ -32,7 +32,7 @@ function initStage()
 
 
         // On charge le 1er monde
-        chargeNiveau("portail")
+        chargeNiveau("portail",{X:0,Y:-10})
 
 
         // Update de l'écran
