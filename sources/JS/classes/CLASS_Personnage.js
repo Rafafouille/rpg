@@ -441,6 +441,13 @@ class Personnage extends ObjetGraphique
        this.mourir();
     }
 
+
+    /** Fonction qui renvoie le titre à afficher dans la boîte de dialogue */
+    get titreDialogue()
+    {
+        return this.nom;
+    }
+
     // ===============================================================================
     // OBJET GRAPHIQUE
     // ===============================================================================

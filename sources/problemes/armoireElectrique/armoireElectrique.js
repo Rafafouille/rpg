@@ -6,8 +6,8 @@ PROBLEME = {
                         <img src=\"sources/problemes/armoireElectrique/engrenages.svg\" height=\"400\"/>\
                     </td>\
                     <td>\
-                        J'arrive à voir l'intérieur du mécanisme !\
-                        De quel angle dois-je tourner la clé pour dégager le verrou ?\
+                        Avec une épingle, j'arrive à crocheter la serrure.\
+                        De quel angle dois-je la tourner pour dégager le verrou ?\
                         <br/><br/>\
                         <input type=\"text\" id=\"reponse_armoire_electrique\" placeholder=\"Votre réponse en degrés\"/>\
                     </td>\
@@ -17,7 +17,7 @@ PROBLEME = {
     // Fonction qui teste le résultat de la réponse de l'utilisateur
     check: function() {
             var reponse = parseFloat($("#reponse_armoire_electrique").val()); // Récupère la valeur de l'input de réponse et la convertit en flottant
-            if (reponse==1) {return true} else {return false}
+            if (reponse>22.036838274 && reponse <26.444205929) {return true} else {return false}
         },
 
     // Fonction appelée en cas de bonne réponse

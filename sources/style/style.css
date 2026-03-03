@@ -9,3 +9,9 @@ body
 {
     margin:0px;
 }
+
+.no-close .ui-dialog-titlebar-close,
+.noTitleStuff .ui-dialog-titlebar-close
+{
+    display:none;
+}

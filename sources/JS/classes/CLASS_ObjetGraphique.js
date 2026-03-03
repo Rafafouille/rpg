@@ -498,7 +498,7 @@ class ObjetGraphique
     /** Action que peut déclencher un personnage */
     action()
     {
-        ouvreDialog("Rien d'intéressant ici")
+        ouvreDialog(JOUEUR.titreDialogue+"|Rien d'intéressant ici")
     }
 
     // ===============================================================================

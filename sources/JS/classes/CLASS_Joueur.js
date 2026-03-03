@@ -96,4 +96,8 @@ class Joueur extends Personnage
             //var patch = this.patch
             //console.log(patch)
     }
+
+
+
+
 }

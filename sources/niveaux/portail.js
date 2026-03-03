@@ -111,7 +111,7 @@
         GARDIEN = new Pnj({
                       POSITION:{X:0, Y:0},
                       action : function(){
-                              PILE_ACTIONS.push(function(){ouvreDialog(["Et bien ! Et bien ! C'est à cette heure-ci qu'on arrive, "+JOUEUR.nom+" ?","Je vais vous apprendre à arriver en retard en cours ! Dans mon bureau et que ça sa...", "Eh ! Oh ! Revenez ici !"])});
+                              PILE_ACTIONS.push(function(){ouvreDialog(["Pion|Et bien ! Et bien ! C'est à cette heure-ci qu'on arrive, "+JOUEUR.nom+" ?","heu...","Pion|Je vais vous apprendre à arriver en retard en cours ! Dans mon bureau et que ça sa...", "PION|Eh ! Oh ! Revenez ici !"])});
                               PILE_ACTIONS.push(function(){JOUEUR.direction.y=-1;setTimeout(function(){JOUEUR.direction.y=0;ACTION_EN_COURS=false;}, 500);});
                               ;},
                       vitesse:2.7,
@@ -237,12 +237,24 @@
                         POSITION_IMAGE:{X:-0.5,Y:1},  // Décalage de l'image à l'intérieur de l'objet en pixels (coordonnées par rapport à l'anchor)
                         ECHELLE_IMAGE:{X:1,Y:1},  // Échelle de l'image
                         action:function(){
-                            PILE_ACTIONS.push(function(){ouvreDialog(["C'est une armoire électrique. Elle est fermée","Tiens ? On dirait que le cadenas est à moitié cassé...","Je peux voir le mécanisme à l'intérieur."]);});
+                            PILE_ACTIONS.push(function(){ouvreDialog(["C'est une armoire électrique. Elle est fermée","Tiens ? On dirait que le cadenas est à moitié cassé...","Je peux voir le mécanisme à l'intérieur !"]);});
                             PILE_ACTIONS.push(function(){chargeProbleme("armoireElectrique");});
                           }
                       });
                       //armoireElectrique.afficheCadre=true
           }
-          
         CARTE.ajouteObjet(armoireElectrique);
+
+
+         var portail = new ObjetImage({
+                      source: "sources/images/objets/portail_parking.png", // Chemin de l'image
+                      POSITION:{X:-38, Y:-7.5},  // Position sur la carte en cases
+                      ANCHOR:{X:0, Y:0},  // Ancrage de l'image en case
+                      DIMENSIONS:{WIDTH:4, HEIGHT:1}, // Dimensions de l'objet en cases
+                      POSITION_IMAGE:{X:0,Y:0.8},  // Décalage de l'image à l'intérieur de l'objet en pixels (coordonnées par rapport à l'anchor)
+                      ECHELLE_IMAGE:{X:1,Y:1},  // Échelle de l'image
+                      action:function(){ouvreDialog("Je ne peux pas rentrer par là.");}
+                    });
+//          portail.afficheCadre=true
+        CARTE.ajouteObjet(portail);
 

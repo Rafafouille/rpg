@@ -9,9 +9,10 @@
     $( function() {
         $( "#dialog" ).dialog({
             //open: function() {$(this).dialog("widget").find(".ui-dialog-titlebar").hide();}, // Pour virer le titre
-            autoOpen: false,
-            modal: true,
-            dialogClass: 'noTitleStuff',
+            autoOpen: false,    // La boîte ne s'ouvre pas automatiquement, c'est nous qui allons l'ouvrir avec la fonction ouvreDialog(message)
+            modal: true,    // Empêche de cliquer en dehors de la boîte pour la fermer
+            dialogClass: "no-close", // Pour virer la croix de fermeture
+            closeOnEscape: false,   // Empêche de fermer la boîte avec la touche Echap
             buttons: {
                 "Terminer": function() {
                     $( this ).dialog( "close" );
@@ -45,9 +46,10 @@
             autoOpen: false,
             modal: true,
             dialogClass: 'noTitleStuff',
-            width: 500,
+            width: 700,
+            closeOnEscape: false,
             buttons: {
-                "Quitter": function() {$(this).dialog( "close" );},
+                "Quitter": function() {fermeProbleme();},
                 "Valider": function() {
                         if (PROBLEME.check()) // Vérifie la réponse
                             PROBLEME.success(); // Appelle la fonction de succès du problème
