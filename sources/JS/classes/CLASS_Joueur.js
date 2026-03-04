@@ -88,13 +88,7 @@ class Joueur extends Personnage
     /** (Redéfinition) Fonction qui met à jour l'objet */
     update(_param_)
     {
-
          super.update(_param_);
-
-
-
-            //var patch = this.patch
-            //console.log(patch)
     }
 
 

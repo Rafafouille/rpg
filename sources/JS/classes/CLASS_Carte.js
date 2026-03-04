@@ -61,6 +61,12 @@ class Carte
     get mapping()
         {return this.#mapping}
 
+    // Fonction qui renvoie une référence de la tuile située sous la coordonnées [X,Y] */
+    getTuile(X,Y)
+    {
+        return this.#mapping[[Math.floor(X+0.5), Math.floor(Y+0.5)]]
+    }
+
         
     creerMappingFromMat(_map_)
     {

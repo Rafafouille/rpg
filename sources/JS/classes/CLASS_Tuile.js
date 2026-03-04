@@ -93,7 +93,7 @@ class Tuile extends ObjetGraphique
     }*/
 
     /** Action réalisée quand le personnage marche sur la tuile (fait partie du patch) */
-    actionMarchPatch(personnage=JOUEUR)
+    actionMarchePatch(personnage=JOUEUR)
     {
 
     }

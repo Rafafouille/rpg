@@ -557,7 +557,7 @@ class Personnage extends ObjetGraphique
         var patch = this.patch
         for(var i = 0; i < patch.length; i++)
         {
-            patch[i].actionMarchPatch();    
+            patch[i].actionMarchePatch();    
             break;
         }
 

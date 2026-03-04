@@ -20,6 +20,8 @@ function norme(V)
 */
 function chargeNiveau(niveau,positionInitiale = {X:0,Y:0})
 {
+    console.log("on change de niveau");
+    AUTORISE_UPDATE = false;
 
     // On fait une fondu pour faire disparaître l'objet SCENE, pour éviter que le joueur puisse voir les tuiles se charger une à une
     $("#canvas").fadeOut(500, function(){
@@ -27,10 +29,9 @@ function chargeNiveau(niveau,positionInitiale = {X:0,Y:0})
                 //CAR = []
 
                 // On bloque l'UPDATE pour éviter des mises à jour durant le chargement
-                AUTORISE_UPDATE = false;
 
-                SCENE.SOL.removeAllChildren()
-                SCENE.OBJETS.removeAllChildren()
+                SCENE.SOL.removeAllChildren();
+                SCENE.OBJETS.removeAllChildren();
 
                 // On chagre le nouveau niveau
                 $.getScript('chargeurNiveau.php?niveau='+niveau)
