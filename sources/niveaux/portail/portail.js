@@ -85,8 +85,7 @@
         // ==================
         // Actions sur certaines tuiles
         // ==================
-
-        console.log(CARTE.getTuile(0,-3))
+        
         CARTE.getTuile(-40,-13).actionMarcheCentre = function(){chargeNiveau("temple_cinematique")};
 
         // ==============
