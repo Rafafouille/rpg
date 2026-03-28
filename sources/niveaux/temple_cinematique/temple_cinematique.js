@@ -3,63 +3,61 @@
         // La carte 
         // ==============
 
+        COULEUR_SOL_DEFAUT="#000000";
 
 
-
-        HHH = {nature: "mur", type: "barriere_H", zIndex: 3}
-        EEE = {nature: "mur", type: "barriere_V", zIndex: 3}
-        d83 = {nature: "mur", type: "buisson", zIndex: 3}
+        HHH = {nature: "mur", type: "falaise", zIndex: 3}
         _8_ = {nature: "sol", type: "fleur", zIndex: 3}
         ___ = {nature: "sol", type: "", zIndex: 1}
         xxx = {nature: "sol", type: "chemin", zIndex: 2}
-        ooo = {nature: "sol", type: "route", zIndex: 4}
-        _O_ = {nature: "trou", type: "", zIndex: 2}
+        ooo = {nature: "sol", type: "dedale", zIndex: 4}
+        _0_ = {nature: "trou", type: "", zIndex: 2}
 
          var carte = [
-[___,___,___,___,___,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,HHH,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___],
-[HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___],
-[HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___],
-[___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
-[___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo],
-[HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo],
-[HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo],
-[HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
-[HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___],
-[HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___],
-[___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___],
-[___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___],
-[___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,HHH,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___],
-[___,___,___,___,___,___,HHH,ooo,ooo,ooo,HHH,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___,___]
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo],
+[_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo],
+[_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo],
+[_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,ooo,ooo,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[_0_,_0_,_0_,_0_,_0_,_0_,_0_,ooo,ooo,ooo,_0_,_0_,_0_,_0_,_0_,_0_,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH],
+[HHH,HHH,HHH,HHH,HHH,HHH,HHH,ooo,ooo,ooo,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH,HHH]
                       ]
 
 

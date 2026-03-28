@@ -11,13 +11,25 @@ class Trou extends Sol
 
         this._nature = "trou";
         
-        var image = new createjs.Bitmap("./sources/images/sprites/sol_trou_herbe.png")
-        ajouteObjetGraphiqueACharger(image.image)
-        image.scaleX = image.scaleY = 1.75
-        image.x = -5
-        image.y = -5
-        this._contenu.addChild(image)
-          
+        switch(_type_)
+        {
+            case "terrier":
+                this._type = "terrier"
+                var image = new createjs.Bitmap("./sources/images/sprites/sol_trou_herbe.png")
+                ajouteObjetGraphiqueACharger(image.image) ; // Fonction qui détecte le moment où une image est chargée, en vue de déclencher la mise en cache un fois que tout est chargé
+                image.scaleX = image.scaleY = 1.75
+                image.x = -5
+                image.y = -5
+                this._contenu.addChild(image)
+                break;
+            default:
+                this._type = "defaut"
+                // Rectangle noir
+                var trou = new createjs.Shape();
+                trou.graphics.beginFill("#000000").drawRect(0,0,UNITE,UNITE);
+                this._contenu.addChild(trou)
+        }
+
         
 
         this.updatePositionObjet()

@@ -32,8 +32,8 @@ function initStage()
 
 
         // On charge le 1er monde
-        chargeNiveau("portail",{X:0,Y:-10})
-
+        //chargeNiveau("portail",{X:0,Y:-10})
+        chargeNiveau("temple_cinematique")
 
         // Update de l'écran
         STAGE.update();
